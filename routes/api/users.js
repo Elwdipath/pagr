@@ -2,10 +2,10 @@ const router = require("express").Router();
 const usersController = require("../../controllers/usersController");
 
 // Matches with "/api/users"
-router
-  .route("/")
+router.route("/")
   .get(usersController.findAll)
   .post(usersController.create);
+  // .post(() => console.log("Attempted to post a user to the database"))
 
 // Matches with "/api/users/:id"
 router
