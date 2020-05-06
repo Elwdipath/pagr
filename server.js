@@ -17,7 +17,7 @@ app.use(routes);
 
 // Connect to the Mongo DB
 mongoose
-  .connect(process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist")
+  .connect(process.env.MONGODB_URI || "mongodb://localhost/reactreadinglist", {useNewUrlParser: true})
   .then(console.log("Connected to Mongoose!"));
 
 // initialize Express
