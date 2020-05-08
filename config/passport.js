@@ -1,6 +1,6 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const db = require("../models");
+const db = require("../database/models");
 
 // registration handler
 passport.use(
@@ -41,7 +41,7 @@ passport.use(
       if (!user) {
         return done(null, false, { message: "username incorrect" });
       }
-      if (!user.verifyPassword(password)) {
+      if (!user.checkPassword(password)) {
         return done(null, false, { message: "Incorrect password" });
       }
       return done(null, user);

@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const usersController = require("../../controllers/usersController");
+const passport = require("passport")
+
 
 // Matches with "/api/users"
 router.route("/")
@@ -7,6 +9,22 @@ router.route("/")
   .post(usersController.create);
   // .post(() => console.log("Attempted to post a user to the database"))
 
+  router.route("/login")
+    .post(function( req, res, next) {
+      console.log("routes/user.js, login, req.body: " + req.body)
+      next()
+    },
+
+     passport.authenticate('local'),
+     (req, res) => {
+       console.log("logged in", JSON.parse(req.user))
+       var userInfo = {
+         username: req.user.username
+       }
+      var userInfo = { username: req.user.username}
+       res.send(userInfo)
+     }
+     )
 // Matches with "/api/users/:id"
 router
   .route("/:id")

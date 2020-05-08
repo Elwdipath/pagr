@@ -12,7 +12,10 @@ class Home extends Component {
   state ={
     newUsername: "",
     newPassword: "",
-    users: []
+    username: "",
+    password: "",
+    users: [],
+    redirectTo: ""
   }
 
 handleInputChange = event => {
@@ -22,9 +25,9 @@ handleInputChange = event => {
   });
 };
 
-// When the form is submitted, use the API.saveUser method to save the User data
+// When this form is submitted, use the API.saveUser method to save the User data
 // Then reload Users from the database
-handleFormSubmit = event => {
+handleFormNewUserSubmit = event => {
   console.log("newUsername: " + this.state.newUsername + " || newPassword: " + this.state.newPassword)
   event.preventDefault();
   if (this.state.newUsername && this.state.newPassword) {
@@ -34,6 +37,35 @@ handleFormSubmit = event => {
     }
     API.saveUser(newUser)
       // .then(res => this.loadUsers())
+      .catch(err => console.log(err));
+  }
+};
+
+handleFormLoginSubmit = event => {
+  console.log("username: " + this.state.username + " || password: " + this.state.password)
+  event.preventDefault();
+  // if both the username field and password field are filled out 
+  if (this.state.username && this.state.password) {
+    let user = {
+      username: this.state.username,
+      password: this.state.password
+    }
+    // submit a login request to our API server 
+    API.login(user).then(response => {
+      console.log("Login response: " + response)
+      // if our login response is good, update the state of our App 
+      if (response.status === 200) {
+        console.log("login success for " + response.data.username)
+        // this.props.updateUser({
+        //   loggedIn: true,
+        //   username: response.data.username
+        // })
+      }
+      // update the state to redirect to home
+      this.setState({
+        redirectTo: "/admin"
+      }).catch(err => console.log("Login error: " + err))
+    })
       .catch(err => console.log(err));
   }
 };
@@ -54,6 +86,29 @@ loadUsers = () => {
                 Login here, should render admin page or user page
             </h1>
         </div>
+
+        <form>
+          <h1>Sign in as an existing user with this forum</h1>
+              <Input
+                value={this.state.username}
+                onChange={this.handleInputChange}
+                name="username"
+                placeholder="username (required)"
+              />
+              <Input
+                value={this.state.password}
+                onChange={this.handleInputChange}
+                name="password"
+                placeholder="password (required)"
+              />
+              <FormBtn
+                disabled={!(this.state.username && this.state.password)}
+                onClick={this.handleFormLoginSubmit}
+              >
+                Login
+              </FormBtn>
+            </form>
+
         <form>
           <h1>Create a user with this forum</h1>
               <Input
@@ -70,7 +125,7 @@ loadUsers = () => {
               />
               <FormBtn
                 disabled={!(this.state.newUsername && this.state.newPassword)}
-                onClick={this.handleFormSubmit}
+                onClick={this.handleFormNewUserSubmit}
               >
                 Create User
               </FormBtn>
