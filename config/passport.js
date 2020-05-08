@@ -22,9 +22,7 @@ passport.use(
         }
         db.User.create({
           username: username,
-          password: password,
-          city: req.body.city,
-          state: req.body.state
+          password: password
         }).then(function(dbUser) {
           return done(null, dbUser);
         });

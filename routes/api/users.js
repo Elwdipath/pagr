@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const usersController = require("../../controllers/usersController");
-const passport = require("passport")
+const passport = require("../../config/passport")
 
 
 // Matches with "/api/users"
@@ -15,7 +15,7 @@ router.route("/")
       next()
     },
 
-     passport.authenticate('local'),
+     passport.authenticate('local-login'),
      (req, res) => {
        console.log("logged in", JSON.parse(req.user))
        var userInfo = {
