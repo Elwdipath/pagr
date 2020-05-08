@@ -10,7 +10,7 @@ passport.use(
       passReqToCallback: true
     },
     function(req, username, password, done) {
-      db.User.findOne({ where: { username: username } }).then(function(
+      db.User.findOne({ username: username } ).then(function(
         err,
         user
       ) {
