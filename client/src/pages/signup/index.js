@@ -65,10 +65,6 @@ class SignUp extends Component {
                   <Input type="password" id="password" name="password" value={this.state.password} onChange={this.handleInputChange} />
                 </FormGroup>
                 <FormGroup>
-                  <Label htmlFor="password">Password</Label>
-                  <Input type="password" id="password" name="password" value={this.state.password} onChange={this.handleInputChange} />
-                </FormGroup>
-                <FormGroup>
                   <Label htmlFor="confPassword">Confirm Password</Label>
                   <Input type="password" id="confPassword" name="password" value={this.state.confirmPassword} onChange={this.handleInputChange} />
                 </FormGroup>
