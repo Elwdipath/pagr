@@ -1,81 +1,48 @@
 import React, { Component } from "react";
-import API from "../../utils/API";
 import { Col, Row, Container } from "../../components/Grid";
-import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
-
-
+import Nav from "../../components/Nav";
+import Jumbotron from "../../components/Jumbotron";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Footer } from "../../components/Footer";
 
 
 class Home extends Component {
 
-  state ={
-    newUsername: "",
-    newPassword: "",
-    users: []
-  }
-
-handleInputChange = event => {
-  const { name, value } = event.target;
-  this.setState({
-    [name]: value
-  });
-};
-
-// When the form is submitted, use the API.saveUser method to save the User data
-// Then reload Users from the database
-handleFormSubmit = event => {
-  console.log("newUsername: " + this.state.newUsername + " || newPassword: " + this.state.newPassword)
-  event.preventDefault();
-  if (this.state.newUsername && this.state.newPassword) {
-    let newUser = {
-      username: this.state.newUsername,
-      password: this.state.newPassword
-    }
-    API.saveUser(newUser)
-      // .then(res => this.loadUsers())
-      .catch(err => console.log(err));
-  }
-};
-
-loadUsers = () => {
-  API.getUsers()
-    .then(res =>
-      this.setState({ users: res.data })
-    )
-    .catch(err => console.log(err));
-};
-
   render() {
     return (
-      <div className="home">
-        <div className="jumbotron">
-            <h1 className="text-dark">
-                Login here, should render admin page or user page
-            </h1>
-        </div>
-        <form>
-          <h1>Create a user with this forum</h1>
-              <Input
-                value={this.state.newUsername}
-                onChange={this.handleInputChange}
-                name="newUsername"
-                placeholder="new Username (required)"
-              />
-              <Input
-                value={this.state.newPassword}
-                onChange={this.handleInputChange}
-                name="newPassword"
-                placeholder="new password (required)"
-              />
-              <FormBtn
-                disabled={!(this.state.newUsername && this.state.newPassword)}
-                onClick={this.handleFormSubmit}
-              >
-                Create User
-              </FormBtn>
-            </form>
-        
+      <div className="wrapper">
+        <Nav />
+        <Container fluid>
+          <Jumbotron>
+            <Row>
+              <Col size="sm-12">
+                <p className="text-center">Secure reliable communication when you need it. Learn how your organization can imporve on-call workflows with Pagr.</p>
+              </Col>
+            </Row>
+            <Row center>
+              <Col size="sm=12">
+                <a href="/sign-up" className="btn btn-success">Get Started</a>
+              </Col>
+            </Row>
+          </Jumbotron>
+          <Container>
+            <Row>
+              <Col size="sm-12 md-4">
+                <FontAwesomeIcon icon="comment-medical" size="6x" color="Dodgerblue" />
+                <p className="pt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias culpa nesciunt reprehenderit. Distinctio culpa sed soluta provident earum. Iste, veritatis.</p>
+              </Col>
+              <Col size="sm-12 md-4">
+                <FontAwesomeIcon icon="laptop-medical" size="6x" color="Dodgerblue" />
+                <p className="pt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias culpa nesciunt reprehenderit. Distinctio culpa sed soluta provident earum. Iste, veritatis.</p>
+              </Col>
+              <Col size="sm-12 md-4">
+                <FontAwesomeIcon icon="user-md" size="6x" color="Dodgerblue" />
+                <p className="pt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias culpa nesciunt reprehenderit. Distinctio culpa sed soluta provident earum. Iste, veritatis.</p>
+              </Col>
+            </Row>
+          </Container>
+        </Container>
+        <Footer />
       </div>
     );
   }
