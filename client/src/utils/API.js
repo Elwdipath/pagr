@@ -13,6 +13,10 @@ export default {
   deleteUser: function(id) {
     return axios.delete("/api/users/" + id);
   },
+  // Creates a new User with the given userInfo
+  createUser: function(userInfo) {
+    return axios.create("/api/users/", userInfo);
+  },
   // Saves a User to the database
   saveUser: function(userData) {
     console.log("Axios Submitting user: " + userData)
