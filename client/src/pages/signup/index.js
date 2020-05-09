@@ -12,7 +12,7 @@ class SignUp extends Component {
         lastName: "",
         email: "",
         password: "",
-        confirmPassword: ""
+        confPassword: ""
       };
 
       handleInputChange = event => {
@@ -25,7 +25,7 @@ class SignUp extends Component {
       handleFormSubmit = event => {
         event.preventDefault();
         if (this.state.firstName && this.state.lastName && this.state.email && this.state.password) {
-          if (this.state.password === this.state.confirmPassword) {
+          if (this.state.password === this.state.confPassword) {
             let userInfo = {
               "firstName": this.state.firstName,
               "lastName": this.state.lastName,
