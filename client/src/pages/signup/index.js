@@ -66,7 +66,7 @@ class SignUp extends Component {
                 </FormGroup>
                 <FormGroup>
                   <Label htmlFor="confPassword">Confirm Password</Label>
-                  <Input type="password" id="confPassword" name="confPassword" value={this.state.confirmPassword} onChange={this.handleInputChange} />
+                  <Input type="password" id="confPassword" name="confPassword" value={this.state.confPassword} onChange={this.handleInputChange} />
                 </FormGroup>
                 <FormBtn className="btn btn-primary">Sign Up</FormBtn>
               </form>
