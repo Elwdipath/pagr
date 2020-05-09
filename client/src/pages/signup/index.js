@@ -32,7 +32,7 @@ class SignUp extends Component {
               "email": this.state.email,
               "password": this.state.password
             }
-            API.createUser(userInfo)
+            API.saveUser(userInfo)
               .then(res => { 
                  alert("Success" + "\n" + res );
               }) 
