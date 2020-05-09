@@ -1,11 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import logo from './logo.svg';
 import './App.css';
-import Home from "./pages/home/"
-import Admin from "./pages/admin"
-import User from "./pages/user"
-import NoMatch from "./pages/noMatch"
+import Home from "./pages/home/";
+import Admin from "./pages/admin";
+import User from "./pages/user";
+import NoMatch from "./pages/noMatch";
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCommentMedical, faUserMd, faLaptopMedical  } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faCommentMedical, faLaptopMedical, faUserMd)
 
 function App() {
   return (
