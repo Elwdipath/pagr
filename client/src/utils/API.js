@@ -21,7 +21,7 @@ export default {
   login: function(loginInfo){
     return axios.post('/api/users/login', loginInfo)
   },
-  verify: function(session){
-    return axios.get('/api/users/verify', session)
+  verify: function(user){
+    return axios.get('/api/users/verify', user)
   }
 };

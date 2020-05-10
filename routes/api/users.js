@@ -21,7 +21,7 @@ router.route("/login")
       var userInfo = {
         username: req.user.username
       }
-      var userInfo = { username: req.user.username }
+      var userInfo = { username: req.user.username, isAdmin: req.user.isAdmin }
       res.send(userInfo)
     }
   )
