@@ -29,16 +29,22 @@ class Home extends Component {
           <Container>
             <Row>
               <Col size="sm-12 md-4">
-                <FontAwesomeIcon icon="comment-medical" size="6x" color="Dodgerblue" />
-                <p className="pt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias culpa nesciunt reprehenderit. Distinctio culpa sed soluta provident earum. Iste, veritatis.</p>
+                <div className="container-fluid text-center">
+                  <FontAwesomeIcon icon="comment-medical" size="6x" color="Dodgerblue" />
+                  <p className="pt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias culpa nesciunt reprehenderit. Distinctio culpa sed soluta provident earum. Iste, veritatis.</p>
+                </div>
               </Col>
               <Col size="sm-12 md-4">
-                <FontAwesomeIcon icon="laptop-medical" size="6x" color="Dodgerblue" />
-                <p className="pt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias culpa nesciunt reprehenderit. Distinctio culpa sed soluta provident earum. Iste, veritatis.</p>
+                <div className="container-fluid text-center">
+                  <FontAwesomeIcon icon="laptop-medical" size="6x" color="Dodgerblue" />
+                  <p className="pt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias culpa nesciunt reprehenderit. Distinctio culpa sed soluta provident earum. Iste, veritatis.</p>
+                </div>
               </Col>
               <Col size="sm-12 md-4">
-                <FontAwesomeIcon icon="user-md" size="6x" color="Dodgerblue" />
-                <p className="pt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias culpa nesciunt reprehenderit. Distinctio culpa sed soluta provident earum. Iste, veritatis.</p>
+                <div className="container-fluid text-center">
+                  <FontAwesomeIcon icon="user-md" size="6x" color="Dodgerblue" />
+                  <p className="pt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias culpa nesciunt reprehenderit. Distinctio culpa sed soluta provident earum. Iste, veritatis.</p>
+                </div>
               </Col>
             </Row>
           </Container>
