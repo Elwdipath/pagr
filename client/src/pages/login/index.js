@@ -50,7 +50,7 @@ class Login extends Component {
                   <Label htmlFor="password">Password</Label>
                   <Input type="password" id="password" autoComplete="current-password" name="password" value={this.state.password} onChange={this.handleInputChange} />
                 </FormGroup>
-                <FormBtn className="btn btn-primary">Login</FormBtn>
+                <FormBtn className="btn btn-primary" onClick={this.handleFormSubmit}>Login</FormBtn>
               </form>
             </div>
           </div>
