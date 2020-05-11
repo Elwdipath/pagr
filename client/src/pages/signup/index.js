@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 // import { Col, Row, Container } from "../../components/Grid";
 import { FormBtn, Input, FormGroup, Label } from "../../components/Form";
+import { Redirect } from "react-router-dom";
 import API from "../../utils/API";
 import { Footer } from "../../components/Footer";
 import "./style.css";
@@ -12,7 +13,8 @@ class SignUp extends Component {
         lastName: "",
         email: "",
         password: "",
-        confPassword: ""
+        confPassword: "",
+        redirect: null
       };
 
       handleInputChange = event => {
@@ -35,12 +37,16 @@ class SignUp extends Component {
             API.saveUser(userInfo)
               .then(res => { 
                  alert("Success" + res );
+                 this.setState({redirect: "/user"});
               }) 
               .catch(err => console.log(err));
           }
       }};
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />
+    }
     return (
       <div className="wrapper">
         <div className="container-fluid">
