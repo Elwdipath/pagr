@@ -4,6 +4,7 @@ import Footer from "../../components/Footer";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from '@fullcalendar/timegrid';
+import Modal from '../../components/Modal';
 import dummy from '../../utils/DummySchedule';
 import './main.scss'
 import Nav from "../../components/Nav";
@@ -13,6 +14,10 @@ class user extends Component {
   state={
     isAdmin: false,
     events: dummy
+  }
+
+  pageOnCall = info => {
+    alert("Title: " + info.event.title);
   }
 
   render() {
@@ -62,10 +67,12 @@ class user extends Component {
                     center: 'title',
                     right: 'today,prevYear,prev,next,nextYear'
                   }}
+                  eventClick={this.pageOnCall}
                   />
               </Col>
             </Row>
           </Container>
+      
         </div>
         );
       } 
