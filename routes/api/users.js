@@ -18,7 +18,7 @@ router.route("/login")
     passport.authenticate('local-login'),
     (req, res) => {
       console.log("logged in", req.user)
-      var userInfo = { email: req.user.email, isAdmin: req.user.isAdmin }
+      var userInfo = { email: req.user.email, isAdmin: req.user.isAdmin, schedules: req.user.schedules }
       res.send(userInfo)
     }
   )

@@ -20,6 +20,12 @@ class user extends Component {
     alert("Title: " + info.event.title);
   }
 
+    componentDidMount(){
+        this.setState({email: `${this.props.location.state.user.email}`, 
+        isAdmin: `${this.props.location.state.user.isAdmin}`,
+        schedules: `${this.props.location.state.user.schedules}`})
+    }
+
   render() {
 
   const renderAdminView = () => {

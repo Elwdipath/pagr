@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 // import { Col, Row, Container } from "../../components/Grid";
 import { FormBtn, Input, FormGroup, Label } from "../../components/Form";
 import API from "../../utils/API";
@@ -23,18 +24,21 @@ class Login extends Component {
         event.preventDefault();
         if (this.state.email && this.state.password) {
             let userInfo = {
-              "email": this.state.email,
-              "password": this.state.password
+              email: this.state.email,
+              password: this.state.password
             }
             API.login(userInfo)
-              .then(res => { 
-                console.log("Success");
-              }) 
+              .then(res => {this.setState({user: res.data})
+            
+              this.setState({redirect: "/user"});})
               .catch(err => console.log(err));
           }
       };
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={{pathname: this.state.redirect, state: {user: this.state.user}}} />
+    }
     return (
       <div className="wrapper">
         <div className="container-fluid">

@@ -23,5 +23,8 @@ export default {
   },
   verify: function(user){
     return axios.get('/api/users/verify', user)
+  },
+  getSchedule: function(_id){
+    return axios.get('/api/schedule', _id)
   }
 };
