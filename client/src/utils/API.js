@@ -24,7 +24,7 @@ export default {
   verify: function(user){
     return axios.get('/api/users/verify', user)
   },
-  schedules: function(_id){
+  getSchedule: function(_id){
     return axios.get('/api/schedule', _id)
   }
 };
