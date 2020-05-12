@@ -7,23 +7,21 @@ passport.use(
   "local-signup",
   new LocalStrategy(
     {
-      passReqToCallback: true
+      emailField: "email",
+      passReqToCallback: true,
     },
-    function(req, username, password, done) {
-      db.User.findOne({ username: username } ).then(function(
-        err,
-        user
-      ) {
+    function (req, email, password, done) {
+      db.User.findOne({ email: email }).then(function (err, user) {
         if (err) {
           return done(err);
         }
         if (user) {
-          return done(null, false, { message: "username is already in use." });
+          return done(null, false, { message: "email is already in use." });
         }
         db.User.create({
-          username: username,
-          password: password
-        }).then(function(dbUser) {
+          email: email,
+          password: password,
+        }).then(function (dbUser) {
           return done(null, dbUser);
         });
       });
@@ -34,24 +32,27 @@ passport.use(
 // login handler
 passport.use(
   "local-login",
-  new LocalStrategy(function(username, password, done) {
-    db.User.findOne({ username: username }, (err, user) => {
-      if (!user) {
-        return done(null, false, { message: "username incorrect" });
-      }
-      if (!user.checkPassword(password)) {
-        return done(null, false, { message: "Incorrect password" });
-      }
-      return done(null, user);
-    });
-  })
+  new LocalStrategy(
+    { usernameField: "email" },
+    function (email, password, done) {
+      db.User.findOne({ email: email }, (err, user) => {
+        if (!user) {
+          return done(null, false, { message: "email incorrect" });
+        }
+        if (!user.checkPassword(password)) {
+          return done(null, false, { message: "Incorrect password" });
+        }
+        return done(null, user);
+      });
+    }
+  )
 );
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
   done(null, user);
 });
 
-passport.deserializeUser(function(user, done) {
+passport.deserializeUser(function (user, done) {
   done(null, user);
 });
 

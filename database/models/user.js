@@ -7,7 +7,13 @@ const userSchema = new Schema({
   email: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
-  isAdmin: { type: Boolean }
+  isAdmin: { type: Boolean, default: true },
+  schedules: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Schedule"
+    }
+  ]
 });
 
 userSchema.methods = {
