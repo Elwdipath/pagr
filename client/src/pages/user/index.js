@@ -1,10 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { Col, Container, Row } from "../../components/Grid";
 import Footer from "../../components/Footer";
 import FullCalendar from "@fullcalendar/react";
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from '@fullcalendar/timegrid';
-import Modal from '../../components/Modal';
 import dummy from '../../utils/DummySchedule';
 import './main.scss'
 import Nav from "../../components/Nav";
@@ -13,7 +14,8 @@ import Nav from "../../components/Nav";
 class user extends Component {
   state={
     isAdmin: false,
-    events: dummy
+    events: dummy,
+    email: ""
   }
 
   pageOnCall = info => {
@@ -32,10 +34,17 @@ class user extends Component {
       if (this.state.isAdmin) {
         return (
           <div className="wrapper">
-            <Nav />
+            {this.state.email ? <Nav /> : <Nav>
+              <li className="nav-item">
+                <a className="nav-link" href="/signup">Sign Up</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/login">Log In</a>
+              </li>
+            </Nav>}
             <Container fluid>
               <Row>
-                <Col size="sm-12 md-3">
+                <Col size="sm-12 md-2">
                   <h3>This is the admin view</h3>
                   <ul>
                     <li>Create Schedule</li>
@@ -43,9 +52,13 @@ class user extends Component {
                     <li>Page On-Call Staff</li>
                   </ul>
                 </Col>
-                <Col size="sm-12 md-9">
+                <Col size="sm-12 md-10">
                   <h1>This is where the schedule will go</h1>
-                  <FullCalendar defaultView="dayGridWeek" plugins={[ dayGridPlugin, timeGridPlugin ]} />
+                  <FullCalendar 
+                    defaultView="dayGridWeek" 
+                    plugins={[ dayGridPlugin, timeGridPlugin ]} 
+                    eventClick={this.pageOnCall}
+                    />
                 </Col>
               </Row>
             </Container>
