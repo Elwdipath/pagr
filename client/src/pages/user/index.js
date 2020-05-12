@@ -14,7 +14,9 @@ class user extends Component {
   }
 
     componentDidMount(){
-        this.setState({email: `${this.props.location.state.user.email}`, isAdmin: `${this.props.location.state.user.isAdmin}`})
+        this.setState({email: `${this.props.location.state.user.email}`, 
+        isAdmin: `${this.props.location.state.user.isAdmin}`,
+        schedules: `${this.props.location.state.user.schedules}`})
       
     }
 
