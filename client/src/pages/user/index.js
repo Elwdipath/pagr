@@ -12,6 +12,14 @@ class user extends Component {
   state={
     isAdmin: false,
   }
+
+    componentDidMount(){
+        this.setState({email: `${this.props.location.state.user.email}`, isAdmin: `${this.props.location.state.user.isAdmin}`})
+      
+    }
+
+
+
   render() {
 
   const renderAdminView = () => {
