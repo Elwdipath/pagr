@@ -4,6 +4,7 @@ import Footer from "../../components/Footer";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from '@fullcalendar/timegrid';
+import dummy from '../../utils/DummySchedule';
 import './main.scss'
 import Nav from "../../components/Nav";
 
@@ -11,7 +12,9 @@ import Nav from "../../components/Nav";
 class user extends Component {
   state={
     isAdmin: false,
+    events: dummy
   }
+
   render() {
 
   const renderAdminView = () => {
@@ -52,7 +55,8 @@ class user extends Component {
                 <h1>This is where the schedule will go</h1>
                 <FullCalendar 
                   defaultView="timeGridDay"
-                  plugins={[ dayGridPlugin, timeGridPlugin ]} 
+                  plugins={[ dayGridPlugin, timeGridPlugin ]}
+                  events={this.state.events}
                   header={{
                     left: 'timeGridWeek,timeGridDay',
                     center: 'title',
