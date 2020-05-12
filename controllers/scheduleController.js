@@ -14,7 +14,7 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
   create: function (req, res) {
-    //when the shift starts, ends, and who it's ment for.
+    //when the shift starts, ends, and who it's meant for.
     let startDate = req.body.startDate
     let endDate = req.body.endDate
     let schedulee = req.body.schedulee
@@ -23,8 +23,9 @@ module.exports = {
       startDate: startDate,
       endDate: endDate
     }
-
+    //newSchedule is defined as our schedule database object
     let newSchedule = new Schedule(scheduleObj)
+    //now we save it to the database and log problems
     newSchedule.save(function(err, sched){
       if (err) {
         console.log(err)
@@ -32,8 +33,9 @@ module.exports = {
         console.log(sched._id)
         console.log(schedulee)
 
-        db.Schedule.findOneAndUpdate(
-          //Local the user the schedule is for
+        //now we update who it's meant for and tack it on the user's db entry
+        db.User.findOneAndUpdate(
+          //Locate the user the schedule is for
           {email: schedulee},
           //push the refference id to this user's schedule array in the DB
           { $push: {schedules: sched._id } },
@@ -51,13 +53,6 @@ module.exports = {
       }
     })
 
-
-    
-
-
-    db.Schedule.create(req.body)
-      .then((dbModel) => res.json(dbModel))
-      .catch((err) => res.status(422).json(err));
   },
   update: function (req, res) {
     db.Schedule.findOneAndUpdate({ _id: req.params.id }, req.body)
