@@ -37,7 +37,7 @@ class SignUp extends Component {
             API.saveUser(userInfo)
               .then(res => { 
                  alert("Success" + res );
-                 this.setState({redirect: "/user"});
+                 this.setState({redirect: "/login"});
               }) 
               .catch(err => console.log(err));
           }
