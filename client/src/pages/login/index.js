@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import Nav from '../../components/Nav';
 // import { Col, Row, Container } from "../../components/Grid";
 import { FormBtn, Input, FormGroup, Label } from "../../components/Form";
 import API from "../../utils/API";
@@ -41,6 +42,14 @@ class Login extends Component {
     }
     return (
       <div className="wrapper">
+        <Nav>
+          <li className="nav-item">
+            <a className="nav-link" href="/signup">Sign Up</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="/login">Log In</a>
+          </li> 
+        </Nav>
         <div className="container-fluid">
           <div className="formContainer rounded border text-center justify-content-center">
             <h1>Log In</h1>
