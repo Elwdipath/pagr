@@ -12,7 +12,14 @@ class Home extends Component {
   render() {
     return (
       <div className="wrapper">
-        <Nav />
+        <Nav>
+          <li className="nav-item">
+            <a className="nav-link" href="/signup">Sign Up</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="/login">Log In</a>
+          </li> 
+        </Nav>
         <Container fluid>
           <Jumbotron>
             <Row>
