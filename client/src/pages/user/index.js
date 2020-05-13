@@ -7,7 +7,8 @@ import Button from 'react-bootstrap/Button';
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from '@fullcalendar/timegrid';
 import dummy from '../../utils/DummySchedule';
-import './main.scss'
+import './main.scss';
+import './style.css';
 import Nav from "../../components/Nav";
 
 
@@ -34,14 +35,11 @@ class user extends Component {
       if (this.state.isAdmin) {
         return (
           <div className="wrapper">
-            {this.state.email ? <Nav /> : <Nav>
+            <Nav>
               <li className="nav-item">
-                <a className="nav-link" href="/signup">Sign Up</a>
+                <a className="nav-link" href="/">Log Out</a>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/login">Log In</a>
-              </li>
-            </Nav>}
+            </Nav>
             <Container fluid>
               <Row>
                 <Col size="sm-12 md-2">
