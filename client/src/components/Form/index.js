@@ -3,3 +3,4 @@ export * from "./TextArea";
 export * from "./FormBtn";
 export * from "./FormGroup";
 export * from "./Label";
+export * from "./DropDown";

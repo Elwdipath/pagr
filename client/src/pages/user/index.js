@@ -1,13 +1,14 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import { Col, Container, Row } from "../../components/Grid";
 import Footer from "../../components/Footer";
 import FullCalendar from "@fullcalendar/react";
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from '@fullcalendar/timegrid';
+import { DropDown, FormBtn, FormGroup, Input, Label } from '../../components/Form';
+import { CreateScheduleModal , CreateScheduleBtn  } from '../../components/CreateScheduleModal';
 import dummy from '../../utils/DummySchedule';
-import './main.scss'
+import './main.scss';
+import './style.css';
 import Nav from "../../components/Nav";
 
 
@@ -16,17 +17,18 @@ class user extends Component {
     isAdmin: false,
     events: dummy,
     email: ""
-  }
+  };
 
   pageOnCall = info => {
+    document.getElementById('createScheduleModal').modal('show');
     alert("Title: " + info.event.title);
-  }
+  };
 
     componentDidMount(){
         this.setState({email: `${this.props.location.state.user.email}`, 
         isAdmin: `${this.props.location.state.user.isAdmin}`,
         schedules: `${this.props.location.state.user.schedules}`})
-    }
+    };
 
   render() {
 
@@ -34,34 +36,49 @@ class user extends Component {
       if (this.state.isAdmin) {
         return (
           <div className="wrapper">
-            {this.state.email ? <Nav /> : <Nav>
+            <Nav>
               <li className="nav-item">
-                <a className="nav-link" href="/signup">Sign Up</a>
+                <a className="nav-link" href="/">Log Out</a>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/login">Log In</a>
-              </li>
-            </Nav>}
+            </Nav>
             <Container fluid>
               <Row>
                 <Col size="sm-12 md-2">
-                  <h3>This is the admin view</h3>
-                  <ul>
-                    <li>Create Schedule</li>
-                    <li>Edit Schedule</li>
-                    <li>Page On-Call Staff</li>
-                  </ul>
+                  <div className="container-fluid mt-3">
+                    <CreateScheduleBtn />
+                  </div>
                 </Col>
                 <Col size="sm-12 md-10">
-                  <h1>This is where the schedule will go</h1>
-                  <FullCalendar 
-                    defaultView="dayGridWeek" 
-                    plugins={[ dayGridPlugin, timeGridPlugin ]} 
-                    eventClick={this.pageOnCall}
-                    />
+                  <div className="mt-1 mr-3">
+                    <FullCalendar 
+                      defaultView="dayGridWeek" 
+                      plugins={[ dayGridPlugin, timeGridPlugin ]} 
+                      events={this.state.events}
+                      header={{
+                        left: 'timeGridWeek,timeGridDay',
+                        center: 'title',
+                        right: 'today,prevYear,prev,next,nextYear'
+                      }}
+                      eventClick={this.pageOnCall}
+                      />
+                    </div>
+                    <div className="mt-5"></div>
                 </Col>
               </Row>
             </Container>
+            <CreateScheduleModal>
+              <FormGroup>
+                <DropDown />
+              </FormGroup>
+              <FormGroup>
+                <Label>Start Time</Label>
+                <Input type="time" />
+              </FormGroup>
+              <FormGroup>
+                <Label>End Time</Label>
+                <Input type="time" />
+              </FormGroup>
+            </CreateScheduleModal>
           </div>
       )} else {
         return (
@@ -91,7 +108,6 @@ class user extends Component {
               </Col>
             </Row>
           </Container>
-      
         </div>
         );
       } 
