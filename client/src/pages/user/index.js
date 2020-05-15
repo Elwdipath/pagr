@@ -4,6 +4,7 @@ import Footer from "../../components/Footer";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from '@fullcalendar/timegrid';
+import bootstrapPlugin from '@fullcalendar/bootstrap';
 import { DropDown, FormBtn, FormGroup, Input, Label } from '../../components/Form';
 import { CreateScheduleModal , CreateScheduleBtn  } from '../../components/CreateScheduleModal';
 import dummy from '../../utils/DummySchedule';
@@ -11,13 +12,32 @@ import './main.scss';
 import './style.css';
 import Nav from "../../components/Nav";
 
+import Modal from "react-bootstrap/Modal";
+import ModalBody from "react-bootstrap/ModalBody";
+import ModalHeader from "react-bootstrap/ModalHeader";
+import ModalFooter from "react-bootstrap/ModalFooter";
+import ModalTitle from "react-bootstrap/ModalTitle";
+import Button from "react-bootstrap/Button"
+
+
 
 class user extends Component {
-  state={
+  constructor() {
+    super()
+  this.state={
     isAdmin: false,
     events: dummy,
-    email: ""
+    email: "",
   };
+  
+  this.toggle = this.toggle.bind(this);
+}
+toggle() {
+  this.setState(prevState => ({
+      modal: !prevState.modal
+  }));
+
+}
 
   pageOnCall = info => {
     document.getElementById('createScheduleModal').modal('show');
@@ -28,6 +48,11 @@ class user extends Component {
         this.setState({email: `${this.props.location.state.user.email}`, 
         isAdmin: `${this.props.location.state.user.isAdmin}`,
         schedules: `${this.props.location.state.user.schedules}`})
+    };
+
+    handleEventClick = ({ event, el }) => {
+      this.toggle();
+      this.setState({ event });
     };
 
   render() {
@@ -52,20 +77,45 @@ class user extends Component {
                   <div className="mt-1 mr-3">
                     <FullCalendar 
                       defaultView="dayGridWeek" 
-                      plugins={[ dayGridPlugin, timeGridPlugin ]} 
+                      plugins={[ dayGridPlugin, timeGridPlugin, bootstrapPlugin ]} 
                       events={this.state.events}
                       header={{
                         left: 'timeGridWeek,timeGridDay',
                         center: 'title',
                         right: 'today,prevYear,prev,next,nextYear'
                       }}
-                      eventClick={this.pageOnCall}
+                      eventClick={this.handleEventClick}
                       />
                     </div>
                     <div className="mt-5"></div>
                 </Col>
               </Row>
             </Container>
+
+
+            <Modal
+            show={this.state.modal}
+          isOpen={this.state.modal}
+          toggle={this.toggle}
+          className={this.props.className}
+        >
+          <ModalHeader toggle={this.toggle}>
+            {/* {this.state.event.title} */}
+          </ModalHeader>
+          <ModalBody>
+            <div>
+              <p>TEST</p>
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary">Do Something</Button>{" "}
+            <Button color="secondary" onClick={this.toggle}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
+
+
             <CreateScheduleModal>
               <FormGroup>
                 <DropDown />
