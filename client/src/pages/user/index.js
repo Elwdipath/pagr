@@ -28,7 +28,6 @@ class user extends Component {
     isAdmin: false,
     events: dummy,
     email: "",
-    modal: false
   };
   
   this.toggle = this.toggle.bind(this);
@@ -95,7 +94,7 @@ toggle() {
 
 
             <Modal
-            // show={this.toggle}
+            show={this.state.modal}
           isOpen={this.state.modal}
           toggle={this.toggle}
           className={this.props.className}
