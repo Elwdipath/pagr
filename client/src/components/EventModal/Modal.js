@@ -19,7 +19,7 @@ export function EventModal(props) {
         <p>This is the body</p>
       </EventModalBody>
       <EventModalFooter>
-        <Button color={props.btnPrimary}>Do Something</Button>{" "}
+        <Button color={props.btnPrimary}>Do Something</Button>
         <Button color={props.btnSecondary} onClick={props.toggle}>
           Cancel
         </Button>
