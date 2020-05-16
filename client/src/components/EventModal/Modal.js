@@ -1,7 +1,9 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import {EventModalHeader, EventModalBody, EventModalFooter} from "./index";
+import ModalTitle from "react-bootstrap/ModalTitle";
+import ModalHeader from "react-bootstrap/ModalHeader";
+import { EventModalHeader, EventModalBody, EventModalFooter } from "./index";
 
 export function EventModal(props) {
   return (
@@ -12,14 +14,16 @@ export function EventModal(props) {
       toggle={props.toggle}
       className={props.className}
     >
-      <EventModalHeader toggle={props.toggle}>
-        <h1>Test Modal</h1>
-      </EventModalHeader>
+      <ModalHeader toggle={props.toggle}>
+        <ModalTitle>{props.eventTitle}</ModalTitle>
+      </ModalHeader>
       <EventModalBody>
         <p>This is the body</p>
       </EventModalBody>
       <EventModalFooter>
-        <Button color={props.btnPrimary}>Do Something</Button>
+        <Button color={props.btnPrimary}>Edit Event</Button>
+        <Button color={props.btnPrimary}>Page On-Call</Button>
+        <Button color={props.btnPrimary}>Delete Event</Button>
         <Button color={props.btnSecondary} onClick={props.toggle}>
           Cancel
         </Button>

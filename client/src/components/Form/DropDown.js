@@ -1,15 +1,11 @@
 import React from "react";
 
-export function DropDown(props) {
+export function DropDown({children}) {
   return (
-    <div class="form-group">
-        <label for="exampleFormControlSelect1">On-Call Staff Member</label>
-        <select class="form-control" id="exampleFormControlSelect1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+    <div className="form-group">
+        <label htmlFor="onCallStaff">On-Call Staff Member</label>
+        <select className="form-control" id="onCallStaff">
+          {children}
         </select>
   </div>
   );
