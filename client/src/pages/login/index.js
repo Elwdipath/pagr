@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Nav from '../../components/Nav';
-// import { Col, Row, Container } from "../../components/Grid";
 import { FormBtn, Input, FormGroup, Label } from "../../components/Form";
 import API from "../../utils/API";
 import { Footer } from "../../components/Footer";
