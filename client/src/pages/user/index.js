@@ -1,28 +1,19 @@
 import React, { Component } from "react";
 import { Col, Container, Row } from "../../components/Grid";
 import Footer from "../../components/Footer";
-import {EventModal} from "../../components/EventModal";
+import { EventModal } from "../../components/EventModal";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import API from "../../utils/API";
 import bootstrapPlugin from "@fullcalendar/bootstrap";
-import {
-  DropDown,
-  FormBtn,
-  FormGroup,
-  Input,
-  Label,
-} from "../../components/Form";
-import {
-  CreateScheduleModal,
-  CreateScheduleBtn,
-} from "../../components/CreateScheduleModal";
+import { CreateScheduleEventModal } from "../../components/CreateScheduleEventModal";
 import Button from "react-bootstrap/Button";
 import dummy from "../../utils/DummySchedule";
 import "./main.scss";
 import "./style.css";
 import Nav from "../../components/Nav";
+import { DropDown, FormGroup, Input, Label } from "../../components/Form";
 
 class user extends Component {
   constructor(props) {
@@ -32,30 +23,51 @@ class user extends Component {
       events: dummy,
       email: this.props.location.state.user.email,
       event: {},
-      users: []
+      users: [],
+      createEventShow: false,
+      eventEmail: "",
+      eventDate: "",
+      eventStartTime: "",
+      eventEndTime: ""
     };
 
     this.toggle = this.toggle.bind(this);
+    this.handleShow = this.handleShow.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
+
   toggle() {
     this.setState((prevState) => ({
       modal: !prevState.modal,
     }));
   }
 
+  saveEvent = () => {
+    console.log("eventSaved");
+  };
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleClose() {
+    this.setState({ createEventShow: false });
+  }
+
+  handleShow() {
+    this.setState({ createEventShow: true });
+    this.getUsers();
+  }
+
   getUsers = async () => {
     let users = await API.getUsers({});
-    this.setState({ users: users.data })
-  }
-
-  createScheduleEvent = () => {
-    alert("Hi");
-  }
-
-
-
-  pageOnCall = (info) => {
+    this.setState({ users: users.data });
   };
+
+  pageOnCall = (info) => {};
 
   // componentDidMount() {
   //   this.setState({
@@ -68,13 +80,11 @@ class user extends Component {
   handleEventClick = ({ event, el }) => {
     this.toggle();
     this.setState({ event });
-    console.log(event);
-    console.log(el);
   };
 
   renderAdminView = () => {
     if (this.state.isAdmin) {
-      console.log('admin');
+      console.log("admin");
       return (
         <div className="wrapper">
           <Nav>
@@ -88,7 +98,10 @@ class user extends Component {
             <Row>
               <Col size="sm-12 md-2">
                 <div className="container-fluid mt-3">
-                  <CreateScheduleBtn onClick={this.getUsers} />
+                  <Button variant="primary" onClick={this.handleShow}>
+                    Create On-Call Schedule
+                  </Button>
+                  {/* <CreateScheduleBtn onClick={this.getUsers} /> */}
                 </div>
               </Col>
               <Col size="sm-12 md-10">
@@ -109,7 +122,7 @@ class user extends Component {
               </Col>
             </Row>
           </Container>
-          <EventModal 
+          <EventModal
             show={this.state.modal}
             isOpen={this.state.modal}
             toggle={this.toggle}
@@ -117,37 +130,26 @@ class user extends Component {
             btnPrimary="Primary"
             btnSeconday="Secondary"
             eventTitle={this.state.event.title}
+          />
+          <CreateScheduleEventModal
+            show={this.state.createEventShow}
+            toggle={this.handleClose}
+            saveEvent={this.saveEvent}
+            className={this.props.className}
+            btnPrimary="Primary"
+            btnSeconday="Secondary"
+            users={this.state.users}
+            handleInputChange={this.handleInputChange}
+            eventEmail={this.state.eventEmail}
+            eventDate={this.state.eventDate}
+            eventStartTime={this.state.eventStartTime}
+            eventEndTime={this.state.eventEndTime}
            />
-          <CreateScheduleModal>
-            <form>
-              <FormGroup>
-                <DropDown>
-                  <option>Select Staff Member</option>
-                  {this.state.users.map(user => (
-                    <option data-useremail={user.email} key={user._id}>{user.firstName} {user.lastName}</option>
-                  ))}
-                </DropDown>
-              </FormGroup>
-              <FormGroup>
-                <Label>Date</Label>
-                <Input type="date" />
-              </FormGroup>
-              <FormGroup>
-                <Label>Start Time</Label>
-                <Input type="time" />
-              </FormGroup>
-              <FormGroup>
-                <Label>End Time</Label>
-                <Input type="time" />
-              </FormGroup>
-            </form>
-          </CreateScheduleModal>
         </div>
       );
     } else {
-      console.log('standard');
+      console.log("standard");
       return (
-
         <div className="wrapper">
           <Nav />
           <Container fluid>
@@ -180,7 +182,6 @@ class user extends Component {
   };
 
   render() {
-
     return (
       <div>
         {this.renderAdminView()}
