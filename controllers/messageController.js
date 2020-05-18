@@ -35,7 +35,7 @@ module.exports = {
                 res.json("Message Sent");
             })
             .catch((error) => {
-                console.error(`Error posting message to Slack API: ${error}`);
+                res.json(`Error posting message to Slack API: ${error}`);
             });
     }
 
