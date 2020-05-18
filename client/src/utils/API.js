@@ -26,5 +26,8 @@ export default {
   },
   getSchedule: function(_id){
     return axios.get('/api/schedule', _id)
+  },
+  saveSchedule: function(schedule){
+    return axios.post('/api/schedule', schedule)
   }
 };
