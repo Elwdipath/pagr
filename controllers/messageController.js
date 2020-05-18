@@ -17,13 +17,14 @@ module.exports = {
     },
 
     postMessage: function (req, res) {
+        console.log(req.body)
         let token = process.env.botToken
         let headers = {
             "Authorization": `Bearer ${token}`
         }
 
         let message = {
-            channel: "#general",
+            channel: "U013D864Q94",
             text: req.body.text,
         };
 
@@ -31,13 +32,11 @@ module.exports = {
                 headers: headers
             })
             .then((response) => {
-                console.log(response);
+                res.json("Message Sent");
             })
             .catch((error) => {
                 console.error(`Error posting message to Slack API: ${error}`);
             });
-
-        return
     }
 
 }
