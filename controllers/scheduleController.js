@@ -20,15 +20,21 @@ module.exports = {
     let startTime = req.body.startTime
     let endTime = req.body.endTime
     let email = req.body.email
+    let slackUserID = req.body.slackUserID || "Not Provided"
 
     scheduleObj = {
-      date: date,
-      endTime: endTime,
-      startTime: startTime,
-      email: email
+      title: email + " On-Call",
+      startTime: date+"T"+startTime,
+      endTime: date+"T"+endTime,
+      contactInfo: {
+        slackUserID: (slackUserID),
+        email: email
+      }
     }
     //newSchedule is defined as our schedule database object
     let newSchedule = new Schedule(scheduleObj)
+    
+    console.log(newSchedule)
     //now we save it to the database and log problems
     newSchedule.save(function(err, schedule){
       if (err) {
@@ -46,14 +52,9 @@ module.exports = {
           //and that this is a new id we are adding
           {new: true}
           //then error log if something went wrong, or tell the browser everything is gucci
-        ).then(function(err){ 
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(success)
-            res.end(303)
-          }
-        })
+        )
+        .then((dbModel) => res.json(dbModel))
+        .catch((err) => res.status(422).json(err));
       }
     })
 
