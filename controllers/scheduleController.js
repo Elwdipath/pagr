@@ -6,7 +6,9 @@ module.exports = {
   findAll: function (req, res) {
     db.Schedule.find(req.query)
       .sort({ date: -1 })
-      .then((dbModel) => res.json(dbModel))
+      .then((dbModel) => {
+        res.json(dbModel)
+      })
       .catch((err) => res.status(422).json(err));
   },
   findById: function (req, res) {
@@ -17,15 +19,15 @@ module.exports = {
   create: function (req, res) {
     //when the shift starts, ends, and who it's meant for.
     let date = req.body.date
-    let startTime = req.body.startTime
-    let endTime = req.body.endTime
+    let start = req.body.startTime
+    let end = req.body.endTime
     let email = req.body.email
     let slackUserID = req.body.slackUserID || "Not Provided"
 
     scheduleObj = {
       title: email + " On-Call",
-      startTime: date+"T"+startTime,
-      endTime: date+"T"+endTime,
+      start: date+"T"+start,
+      end: date+"T"+end,
       contactInfo: {
         slackUserID: (slackUserID),
         email: email
