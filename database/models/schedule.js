@@ -5,6 +5,7 @@ const scheduleSchema = new Schema({
   title: { type: String, required: true },
   start: { type: String, required: true },
   end: { type: String, required: true },
+  firstName: { type: String },
   contactInfo: {
     slackUserID: { type: String },
     email: { type: String }
