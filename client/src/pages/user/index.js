@@ -32,7 +32,7 @@ class user extends Component {
       eventStaff: "",
       eventDate: "",
       eventStartTime: "",
-      eventEndTime: ""
+      eventEndTime: "",
     };
 
     this.toggle = this.toggle.bind(this);
@@ -54,8 +54,8 @@ class user extends Component {
       eventStaff: this.state.eventStaff,
       eventDate: this.state.eventDate,
       eventStartTime: this.state.eventStartTime,
-      eventEndTime: this.state.eventEndTime
-    }
+      eventEndTime: this.state.eventEndTime,
+    };
     console.log(event);
   };
 
@@ -91,27 +91,19 @@ class user extends Component {
 
   pageOnCall = (info) => {};
 
-    testing = async() => {
-    let testAll = await API.getSchedules()
-    console.log("All schedules: " + testAll)
+// ========================= TESTING SETTING SCHEDULE DATA
+  getAllSchedules = async () => {
+    let allSchedules = await API.getSchedules();
     this.setState({
-      events: testAll.data
+      events: allSchedules.data,
     });
-    }
+  };
+// ========================= TESTING SETTING SCHEDULE DATA
+
   componentDidMount() {
+    this.getAllSchedules();
+  }
 
-    this.testing()
-
-    }
-    // let testTrimmed = testAll.forEach(sched => {
-    //   return ({
-    //     title: sched.title,
-    //     start: sched.startTime,
-    //     end: sched.endTime
-    //   })
-    // })
-    
- 
   handleEventClick = ({ event, el }) => {
     this.toggle();
     this.setState({ event });
