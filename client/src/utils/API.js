@@ -26,5 +26,9 @@ export default {
   },
   getSchedule: function(_id){
     return axios.get('/api/schedule', _id)
-  }
+  },
+  // Gets the User with the given id
+  createSchedule: function(event) {
+    return axios.get("/api/schedule/", event);
+  },
 };
