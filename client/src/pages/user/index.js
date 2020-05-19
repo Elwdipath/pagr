@@ -3,17 +3,21 @@ import { Col, Container, Row } from "../../components/Grid";
 import Footer from "../../components/Footer";
 import { EventModal } from "../../components/EventModal";
 import FullCalendar from "@fullcalendar/react";
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
+import FormLabel from "react-bootstrap/FormLabel";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import API from "../../utils/API";
 import bootstrapPlugin from "@fullcalendar/bootstrap";
-import { CreateScheduleEventModal } from "../../components/CreateScheduleEventModal";
+import ModalInfo from "../../components/CreateScheduleEventModal/ModalInfo.js";
 import Button from "react-bootstrap/Button";
 import dummy from "../../utils/DummySchedule";
 import "./main.scss";
 import "./style.css";
 import Nav from "../../components/Nav";
 import { DropDown, FormGroup, Input, Label } from "../../components/Form";
+import { Calendar } from "@fullcalendar/core";
 
 class user extends Component {
   constructor(props) {
@@ -25,7 +29,7 @@ class user extends Component {
       event: {},
       users: [],
       createEventShow: false,
-      eventEmail: "",
+      eventStaff: "",
       eventDate: "",
       eventStartTime: "",
       eventEndTime: ""
@@ -34,6 +38,7 @@ class user extends Component {
     this.toggle = this.toggle.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   toggle() {
@@ -43,13 +48,21 @@ class user extends Component {
   }
 
   saveEvent = () => {
+    event.preventDefault();
     console.log("eventSaved");
+    let event = {
+      eventStaff: this.state.eventStaff,
+      eventDate: this.state.eventDate,
+      eventStartTime: this.state.eventStartTime,
+      eventEndTime: this.state.eventEndTime
+    }
+    console.log(event);
   };
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -65,6 +78,15 @@ class user extends Component {
   getUsers = async () => {
     let users = await API.getUsers({});
     this.setState({ users: users.data });
+  };
+
+  createSchedule = () => {
+    API.createSchedule({
+      eventStaff: "test@test.com",
+      eventDate: "2020-05-17",
+      eventStartTime: "08:30:00",
+      eventEndTime: "10:30:00",
+    });
   };
 
   pageOnCall = (info) => {};
@@ -131,20 +153,13 @@ class user extends Component {
             btnSeconday="Secondary"
             eventTitle={this.state.event.title}
           />
-          <CreateScheduleEventModal
+          <ModalInfo
             show={this.state.createEventShow}
-            toggle={this.handleClose}
-            saveEvent={this.saveEvent}
-            className={this.props.className}
-            btnPrimary="Primary"
-            btnSeconday="Secondary"
             users={this.state.users}
-            handleInputChange={this.handleInputChange}
-            eventEmail={this.state.eventEmail}
-            eventDate={this.state.eventDate}
-            eventStartTime={this.state.eventStartTime}
-            eventEndTime={this.state.eventEndTime}
-           />
+            toggle={this.handleClose}
+            onSubmit={this.saveEvent}
+            onChange={this.handleInputChange}
+          />
         </div>
       );
     } else {
