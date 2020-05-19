@@ -91,14 +91,27 @@ class user extends Component {
 
   pageOnCall = (info) => {};
 
-  // componentDidMount() {
-  //   this.setState({
-  //     email: `${this.props.location.state.user.email}`,
-  //     isAdmin: `${this.props.location.state.user.isAdmin}`,
-  //     schedules: `${this.props.location.state.user.schedules}`,
-  //   });
-  // }
+    testing = async() => {
+    let testAll = await API.getSchedules()
+    console.log("All schedules: " + testAll)
+    this.setState({
+      events: testAll.data
+    });
+    }
+  componentDidMount() {
 
+    this.testing()
+
+    }
+    // let testTrimmed = testAll.forEach(sched => {
+    //   return ({
+    //     title: sched.title,
+    //     start: sched.startTime,
+    //     end: sched.endTime
+    //   })
+    // })
+    
+ 
   handleEventClick = ({ event, el }) => {
     this.toggle();
     this.setState({ event });
