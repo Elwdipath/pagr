@@ -35,6 +35,12 @@ class ModalInfo extends React.Component {
       endTime: this.state.eventEndTime
     }
     API.saveSchedule(event)
+    this.setState({
+      eventStaff: "",
+      eventDate: "",
+      eventStartTime: "",
+      eventEndTime: ""
+    })
   }
 
   handleInputChange = (event) => {
