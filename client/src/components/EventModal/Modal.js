@@ -18,12 +18,14 @@ export function EventModal(props) {
         <ModalTitle>{props.eventTitle}</ModalTitle>
       </ModalHeader>
       <EventModalBody>
-        <p>This is the body</p>
+        <h2>Staff Member: {props.eventStaff}</h2>
+        <h2>Start Time: {props.eventStartTime}</h2>
+        <h2>End Time: {props.eventEndTime}</h2>
       </EventModalBody>
       <EventModalFooter>
         <Button color={props.btnPrimary}>Edit Event</Button>
         <Button color={props.btnPrimary}>Page On-Call</Button>
-        <Button color={props.btnPrimary}>Delete Event</Button>
+        <Button onClick={props.deleteEvent} color={props.btnPrimary}>Delete Event</Button>
         <Button color={props.btnSecondary} onClick={props.toggle}>
           Cancel
         </Button>

@@ -24,27 +24,37 @@ class user extends Component {
     super(props);
     this.state = {
       isAdmin: this.props.location.state.user.isAdmin,
-      events: dummy,
+      events: {},
       email: this.props.location.state.user.email,
-      event: {},
+      event: [],
       users: [],
       createEventShow: false,
       eventStaff: "",
+      eventTitle: "",
       eventDate: "",
       eventStartTime: "",
       eventEndTime: "",
+      eventID: ""
     };
 
     this.toggle = this.toggle.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.deleteEvent = this.deleteEvent.bind(this);
   }
 
   toggle() {
     this.setState((prevState) => ({
       modal: !prevState.modal,
     }));
+    this.getAllSchedules({});
+  }
+
+  deleteEvent = () => {
+    let id = this.state.eventID;
+    API.deleteSchedule(id);
+    this.toggle();
   }
 
   saveEvent = () => {
@@ -80,15 +90,6 @@ class user extends Component {
     this.setState({ users: users.data });
   };
 
-  createSchedule = () => {
-    API.createSchedule({
-      eventStaff: "test@test.com",
-      eventDate: "2020-05-17",
-      eventStartTime: "08:30:00",
-      eventEndTime: "10:30:00",
-    });
-  };
-
   pageOnCall = (info) => {};
 
 // ========================= TESTING SETTING SCHEDULE DATA
@@ -106,7 +107,17 @@ class user extends Component {
 
   handleEventClick = ({ event, el }) => {
     this.toggle();
-    this.setState({ event });
+    this.setState({ 
+      eventTitle: event.title,
+      eventStaff: event.email,
+      eventStartTime: event.start.toString(),
+      eventEndTime: event.end.toString(),
+      eventID: event._def.extendedProps._id
+    });
+    console.log(event);
+    console.log(event._def.extendedProps._id);
+    
+    
   };
 
   renderAdminView = () => {
@@ -156,7 +167,12 @@ class user extends Component {
             className={this.props.className}
             btnPrimary="Primary"
             btnSeconday="Secondary"
-            eventTitle={this.state.event.title}
+            eventStaff={this.state.email}
+            eventTitle={this.state.eventTitle}
+            eventStartTime={this.state.eventStartTime}
+            eventEndTime={this.state.eventEndTime}
+            deleteEvent={this.deleteEvent}
+            // eventStaffSlackID={this.state.event._def.extendedProps.contactInfo.slackUserID}
           />
           <ModalInfo
             show={this.state.createEventShow}
