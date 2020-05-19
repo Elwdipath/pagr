@@ -1,3 +1,4 @@
+  
 import axios from "axios";
 
 export default {
@@ -23,6 +24,9 @@ export default {
   },
   verify: function(user){
     return axios.get('/api/users/verify', user)
+  },
+  getSchedules: function(){
+    return axios.get('/api/schedule')
   },
   getSchedule: function(_id){
     return axios.get('/api/schedule', _id)

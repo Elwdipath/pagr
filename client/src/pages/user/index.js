@@ -24,15 +24,15 @@ class user extends Component {
     super(props);
     this.state = {
       isAdmin: this.props.location.state.user.isAdmin,
-      events: dummy,
+      events: {},
       email: this.props.location.state.user.email,
-      event: {},
+      event: [],
       users: [],
       createEventShow: false,
       eventStaff: "",
       eventDate: "",
       eventStartTime: "",
-      eventEndTime: ""
+      eventEndTime: "",
     };
 
     this.toggle = this.toggle.bind(this);
@@ -45,6 +45,7 @@ class user extends Component {
     this.setState((prevState) => ({
       modal: !prevState.modal,
     }));
+    this.getAllSchedules({});
   }
 
   saveEvent = () => {
@@ -54,8 +55,8 @@ class user extends Component {
       eventStaff: this.state.eventStaff,
       eventDate: this.state.eventDate,
       eventStartTime: this.state.eventStartTime,
-      eventEndTime: this.state.eventEndTime
-    }
+      eventEndTime: this.state.eventEndTime,
+    };
     console.log(event);
   };
 
@@ -80,24 +81,20 @@ class user extends Component {
     this.setState({ users: users.data });
   };
 
-  createSchedule = () => {
-    API.createSchedule({
-      eventStaff: "test@test.com",
-      eventDate: "2020-05-17",
-      eventStartTime: "08:30:00",
-      eventEndTime: "10:30:00",
-    });
-  };
-
   pageOnCall = (info) => {};
 
-  // componentDidMount() {
-  //   this.setState({
-  //     email: `${this.props.location.state.user.email}`,
-  //     isAdmin: `${this.props.location.state.user.isAdmin}`,
-  //     schedules: `${this.props.location.state.user.schedules}`,
-  //   });
-  // }
+// ========================= TESTING SETTING SCHEDULE DATA
+  getAllSchedules = async () => {
+    let allSchedules = await API.getSchedules();
+    this.setState({
+      events: allSchedules.data,
+    });
+  };
+// ========================= TESTING SETTING SCHEDULE DATA
+
+  componentDidMount() {
+    this.getAllSchedules();
+  }
 
   handleEventClick = ({ event, el }) => {
     this.toggle();
