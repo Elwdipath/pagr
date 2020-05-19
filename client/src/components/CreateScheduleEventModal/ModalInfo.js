@@ -22,17 +22,19 @@ class ModalInfo extends React.Component {
       eventStartTime: "",
       eventEndTime: ""
     }
+
+    this.saveData = this.saveData.bind(this);
   }
 
-  saveData() {
-    event.preventDefault();
+  saveData(e) {
+    e.preventDefault();
     let event = {
-      eventStaff: this.state.eventStaff,
-      eventDate: this.state.eventDate,
-      eventStartTime: this.state.eventStartTime,
-      eventEndTime: this.state.eventEndTime
+      email: this.state.eventStaff,
+      date: this.state.eventDate,
+      startTime: this.state.eventStartTime,
+      endTime: this.state.eventEndTime
     }
-    API.createSchedule(event)
+    API.saveSchedule({event})
   }
 
   handleInputChange = (event) => {
@@ -55,7 +57,7 @@ class ModalInfo extends React.Component {
         <ModalTitle>Create New On-Call Coverage</ModalTitle>
       </ModalHeader>
       <ModalBody>
-        <Form>
+        <Form onSubmit={this.saveData}>
           <FormGroup>
             <FormControl onChange={this.handleInputChange} name="eventStaff" value={this.state.eventStaff} as="select" >
               <option>Select Staff Member</option>
@@ -76,7 +78,7 @@ class ModalInfo extends React.Component {
             <FormLabel>Select End Time</FormLabel>    
             <FormControl onChange={this.handleInputChange} name="eventEndTime" value={this.state.eventEndTime} type="time" />
           </FormGroup>
-          <Button onClick={this.saveData} type="submit" color="btnPrimary">Save Event</Button>
+          <Button onClick={this.props.toggle} type="submit" color="btnPrimary">Save Event</Button>
         </Form>
       </ModalBody>
       <EventModalFooter>
