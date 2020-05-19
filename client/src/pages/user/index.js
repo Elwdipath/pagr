@@ -30,15 +30,18 @@ class user extends Component {
       users: [],
       createEventShow: false,
       eventStaff: "",
+      eventTitle: "",
       eventDate: "",
       eventStartTime: "",
       eventEndTime: "",
+      eventID: ""
     };
 
     this.toggle = this.toggle.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.deleteEvent = this.deleteEvent.bind(this);
   }
 
   toggle() {
@@ -46,6 +49,12 @@ class user extends Component {
       modal: !prevState.modal,
     }));
     this.getAllSchedules({});
+  }
+
+  deleteEvent = () => {
+    let id = this.state.eventID;
+    API.deleteSchedule(id);
+    this.toggle();
   }
 
   saveEvent = () => {
@@ -98,7 +107,17 @@ class user extends Component {
 
   handleEventClick = ({ event, el }) => {
     this.toggle();
-    this.setState({ event });
+    this.setState({ 
+      eventTitle: event.title,
+      eventStaff: event.email,
+      eventStartTime: event.start.toString(),
+      eventEndTime: event.end.toString(),
+      eventID: event._def.extendedProps._id
+    });
+    console.log(event);
+    console.log(event._def.extendedProps._id);
+    
+    
   };
 
   renderAdminView = () => {
@@ -148,7 +167,12 @@ class user extends Component {
             className={this.props.className}
             btnPrimary="Primary"
             btnSeconday="Secondary"
-            eventTitle={this.state.event.title}
+            eventStaff={this.state.email}
+            eventTitle={this.state.eventTitle}
+            eventStartTime={this.state.eventStartTime}
+            eventEndTime={this.state.eventEndTime}
+            deleteEvent={this.deleteEvent}
+            // eventStaffSlackID={this.state.event._def.extendedProps.contactInfo.slackUserID}
           />
           <ModalInfo
             show={this.state.createEventShow}

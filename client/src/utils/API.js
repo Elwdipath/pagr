@@ -28,6 +28,10 @@ export default {
   getSchedules: function(){
     return axios.get('/api/schedule')
   },
+  deleteSchedule: function(event){
+    console.log(event);
+    return axios.delete('/api/schedule/' + event);
+  },
   getSchedule: function(_id){
     return axios.get('/api/schedule', _id)
   },
