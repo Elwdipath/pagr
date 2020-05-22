@@ -7,6 +7,15 @@ import { Footer } from "../../components/Footer";
 import "./style.css";
 
 
+      const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+      const validateForm = (errors) => {
+        let valid = true;
+        Object.values(errors).forEach(
+          (val) => val.length > 0 && (valid = false)
+        );
+        return valid;
+      }
+
 class SignUp extends Component {
     state = {
         firstName: "",
@@ -14,15 +23,45 @@ class SignUp extends Component {
         email: "",
         password: "",
         confPassword: "",
-        redirect: null
+        redirect: null,
+      errors: {
+        firstName: '',
+        email: '',
+        password: '',
+        confPassword: ''
+      }
       };
+
+
+
 
       handleInputChange = event => {
         const { name, value } = event.target;
-        this.setState({
-          [name]: value
-        });
-      };
+        switch (name) {
+          case 'email': 
+          this.state.errors.email = 
+              validEmailRegex.test(value)
+                ? ''
+                : 'Email is not valid!';
+            break;
+          case 'password': 
+          this.state.errors.password = 
+              value.length < 8
+                ? 'Password must be 8 characters long!'
+                : '';
+            break;
+            case 'confPassword': 
+            this.state.errors.confPassword = 
+            this.state.password  != this.state.confPassword && value.length < 8
+                  ? 'Passwords do not match!'
+                  : '';
+              break;
+          default:
+            break;
+        }
+    
+        this.setState({[name]: value});
+      }
 
       handleFormSubmit = event => {
         event.preventDefault();
@@ -44,6 +83,7 @@ class SignUp extends Component {
       }};
 
   render() {
+    const {errors} = this.state;
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />
     }
@@ -66,14 +106,21 @@ class SignUp extends Component {
                   <Label htmlFor="email">Email Name</Label>
                   <Input type="email" id="email" name="email" autoComplete="email" value={this.state.email} onChange={this.handleInputChange} />
                 </FormGroup>
+                {errors.email.length > 0 && 
+                <span className='error'>{errors.email}</span>}
                 <FormGroup>
                   <Label htmlFor="password">Password</Label>
                   <Input type="password" id="password" name="password" autoComplete="new-password" value={this.state.password} onChange={this.handleInputChange} />
                 </FormGroup>
+                {errors.password.length > 0 && 
+                <span className='error'>{errors.password}</span>}
                 <FormGroup>
                   <Label htmlFor="confPassword">Confirm Password</Label>
                   <Input type="password" id="confPassword" name="confPassword" autoComplete="off" value={this.state.confPassword} onChange={this.handleInputChange} />
                 </FormGroup>
+                {errors.confPassword.length > 0 && 
+                <span className='error'>{errors.confPassword}</span>}
+                <br/>
                 <FormBtn className="btn btn-primary" onClick={this.handleFormSubmit}>Sign Up</FormBtn>
               </form>
             </div>
