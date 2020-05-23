@@ -16,7 +16,7 @@ import "./style.css";
         return valid;
       }
 
-class SignUp extends Component {
+      class SignUp extends Component {
     state = {
         firstName: "",
         lastName: "",
@@ -76,10 +76,18 @@ class SignUp extends Component {
             }
             API.saveUser(userInfo)
               .then(res => { 
+                 console.log(res);
                  alert("Success" + res );
-                 this.setState({redirect: "/user", user: res.data});
+                 this.setState({redirect: "/user", user: res.data})
+                 
+                 if (res){
+                   alert(res)
+                 };
               }) 
-              .catch(err => console.log(err));
+              .catch((err) => {
+                console.log(err)
+                alert("Email is already in use.")
+              });
           }
       } else {
         alert("Please fix your errors and try again!")

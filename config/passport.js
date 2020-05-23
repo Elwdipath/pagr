@@ -2,6 +2,11 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const db = require("../database/models");
 
+
+const sendError = (err, res) => res.status(400).json({ err: err.toString() });
+const badCredentials = "There was a problem with your login credentials. Please make sure your username and password are correct.";
+
+
 // registration handler
 passport.use(
   "local-signup",
@@ -24,7 +29,7 @@ passport.use(
           firstName: req.body.firstName,
           lastName: req.body.lastName
         }).then(function (dbUser) {
-          return done(null, dbUser);
+          return done(null, dbUser, { message: "login successful" });
         });
         }
       });

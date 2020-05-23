@@ -29,11 +29,13 @@ router.route("/login")
 
 router.route("/signup")
 .post(
-  passport.authenticate("local-signup"),
-  (req, res) => {
-
-
-  
+  passport.authenticate("local-signup", {
+  }),
+  (req, res, info) => {
+    if(!req.user) {
+      req.session.message = info.message
+    }
+    console.log(req.session.message)
   res.send(req.user)
   }
 );
