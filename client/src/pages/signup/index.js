@@ -113,8 +113,13 @@ import "./style.css";
       return <Redirect to={{pathname: this.state.redirect, state: {user: this.state.user}}} />
     }
     const {errors} = this.state;
+    const signUpWrapper = {
+      height: '100%',
+      width: '100%',
+      backgroundImage: 'url(assets/img/er.jpg)'
+    }
     return (
-      <div className="wrapper">
+      <div className='signUpWrapper' style={signUpWrapper}>
         <div className="container-fluid">
           <div className="formContainer rounded border text-center justify-content-center">
             <h1>Sign Up</h1>
