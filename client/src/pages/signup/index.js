@@ -64,8 +64,9 @@ class SignUp extends Component {
       }
 
       handleFormSubmit = event => {
+        let result = !Object.values(this.state.errors).every(o => o === "");
         event.preventDefault();
-        if (this.state.firstName && this.state.lastName && this.state.email && this.state.password) {
+        if (this.state.firstName && this.state.lastName && this.state.email && this.state.password && !result) {
           if (this.state.password === this.state.confPassword) {
             let userInfo = {
               "firstName": this.state.firstName,
@@ -80,13 +81,16 @@ class SignUp extends Component {
               }) 
               .catch(err => console.log(err));
           }
-      }};
+      } else {
+        alert("Please fix your errors and try again!")
+      }
+    };
 
   render() {
-    const {errors} = this.state;
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />
     }
+    const {errors} = this.state;
     return (
       <div className="wrapper">
         <div className="container-fluid">
@@ -107,19 +111,19 @@ class SignUp extends Component {
                   <Input type="email" id="email" name="email" autoComplete="email" value={this.state.email} onChange={this.handleInputChange} />
                 </FormGroup>
                 {errors.email.length > 0 && 
-                <span className='error'>{errors.email}</span>}
+                <span className='error text-danger'>{errors.email}</span>}
                 <FormGroup>
                   <Label htmlFor="password">Password</Label>
                   <Input type="password" id="password" name="password" autoComplete="new-password" value={this.state.password} onChange={this.handleInputChange} />
                 </FormGroup>
                 {errors.password.length > 0 && 
-                <span className='error'>{errors.password}</span>}
+                <span className='error text-danger'>{errors.password}</span>}
                 <FormGroup>
                   <Label htmlFor="confPassword">Confirm Password</Label>
                   <Input type="password" id="confPassword" name="confPassword" autoComplete="off" value={this.state.confPassword} onChange={this.handleInputChange} />
                 </FormGroup>
                 {errors.confPassword.length > 0 && 
-                <span className='error'>{errors.confPassword}</span>}
+                <span className='error text-danger'>{errors.confPassword}</span>}
                 <br/>
                 <FormBtn className="btn btn-primary" onClick={this.handleFormSubmit}>Sign Up</FormBtn>
               </form>

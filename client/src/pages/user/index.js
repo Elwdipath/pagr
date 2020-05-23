@@ -127,7 +127,7 @@ class user extends Component {
         <div className="wrapper">
           <Nav>
             <li className="nav-item">
-              <a className="nav-link" href="/">
+              <a className="nav-link" href="/api/users/logout">
                 Log Out
               </a>
             </li>

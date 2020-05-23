@@ -7,23 +7,26 @@ passport.use(
   "local-signup",
   new LocalStrategy(
     {
-      emailField: "email",
+      usernameField: "email",
       passReqToCallback: true,
     },
     function (req, email, password, done) {
-      db.User.findOne({ email: email }).then(function (err, user) {
+      db.User.findOne({ 'email': email }).then(async function (err, user) {
         if (err) {
           return done(err);
         }
         if (user) {
           return done(null, false, { message: "email is already in use." });
-        }
-        db.User.create({
+        } else {
+        await db.User.create({
           email: email,
           password: password,
+          firstName: req.body.firstName,
+          lastName: req.body.lastName
         }).then(function (dbUser) {
           return done(null, dbUser);
         });
+        }
       });
     }
   )
