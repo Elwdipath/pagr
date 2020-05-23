@@ -17,7 +17,7 @@ export default {
   // Saves a User to the database
   saveUser: function(userData) {
     console.log("Axios Submitting user: " + userData)
-    return axios.post("/api/users/", userData);
+    return axios.post("/api/users/signup", userData);
   },
   login: function(loginInfo){
     return axios.post('/api/users/login', loginInfo)

@@ -3,17 +3,23 @@ const LocalStrategy = require("passport-local").Strategy;
 const db = require("../database/models");
 const messageController = require("../controllers/messageController");
 
+
+const sendError = (err, res) => res.status(400).json({ err: err.toString() });
+const badCredentials = "There was a problem with your login credentials. Please make sure your username and password are correct.";
+
+
 // registration handler
 passport.use(
   "local-signup",
-  new LocalStrategy({
-      emailField: "email",
+
+  new LocalStrategy(
+    {
+      usernameField: "email",
       passReqToCallback: true,
     },
     function (req, email, password, done) {
-      db.User.findOne({
-        email: email
-      }).then(function (err, user) {
+      db.User.findOne({ 'email': email }).then(async function (err, user) {
+
         if (err) {
           return done(err);
         }
@@ -23,11 +29,15 @@ passport.use(
           });
         }
         db.User.create({
+
           email: email,
           password: password,
+          firstName: req.body.firstName,
+          lastName: req.body.lastName
         }).then(function (dbUser) {
-          return done(null, dbUser);
+          return done(null, dbUser, { message: "login successful" });
         });
+        }
       });
     }
   )
@@ -36,8 +46,10 @@ passport.use(
 // login handler
 passport.use(
   "local-login",
+
   new LocalStrategy({
       usernameField: "email"
+
     },
     function (email, password, done) {
       db.User.findOne({

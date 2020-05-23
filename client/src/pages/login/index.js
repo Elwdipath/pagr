@@ -31,7 +31,10 @@ class Login extends Component {
               .then(res => {this.setState({user: res.data})
             
               this.setState({redirect: "/user"});})
-              .catch(err => console.log(err));
+              .catch(err => {
+                console.log(err)
+                alert("Invalid email or password")
+                });
           }
       };
 
