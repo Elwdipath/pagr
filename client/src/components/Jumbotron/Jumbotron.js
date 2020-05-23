@@ -4,7 +4,7 @@ function Jumbotron({ children }) {
   return (
     <div
       style={{ 
-        height: 300, 
+        height: 500, 
         paddingTop: 100,
         backgroundImage: 'url(assets/img/doctor_crossed_arms.jpg)',
         backgroundSize: 'cover'
