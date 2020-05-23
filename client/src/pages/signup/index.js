@@ -21,6 +21,7 @@ import "./style.css";
         firstName: "",
         lastName: "",
         email: "",
+        isAdmin: false,
         password: "",
         confPassword: "",
         redirect: null,
@@ -63,6 +64,18 @@ import "./style.css";
         this.setState({[name]: value});
       }
 
+      handleCheckBoxChange = () => {
+        if (this.state.isAdmin) {
+          this.setState({
+            isAdmin: false
+          });
+        } else {
+          this.setState({
+            isAdmin: true
+          });
+        };
+      };
+
       handleFormSubmit = event => {
         let result = !Object.values(this.state.errors).every(o => o === "");
         event.preventDefault();
@@ -72,6 +85,7 @@ import "./style.css";
               "firstName": this.state.firstName,
               "lastName": this.state.lastName,
               "email": this.state.email,
+              "isAdmin": this.state.isAdmin,
               "password": this.state.password
             }
             API.saveUser(userInfo)
@@ -120,6 +134,10 @@ import "./style.css";
                 </FormGroup>
                 {errors.email.length > 0 && 
                 <span className='error text-danger'>{errors.email}</span>}
+                <FormGroup>
+                  <Label htmlFor="isAdmin">Admin User?</Label>
+                  <Input type="checkbox" id="isAdmin" name="isAdmin" value={this.state.isAdmin} onChange={this.handleCheckBoxChange} />
+                </FormGroup>
                 <FormGroup>
                   <Label htmlFor="password">Password</Label>
                   <Input type="password" id="password" name="password" autoComplete="new-password" value={this.state.password} onChange={this.handleInputChange} />
