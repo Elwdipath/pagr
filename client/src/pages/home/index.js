@@ -10,6 +10,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 class Home extends Component {
 
   render() {
+    const jumbotronText = {
+       color: '#000',
+       fontFamily: 'Roboto',
+       fontWeight: 900,
+       fontSize: '3rem',
+    }
     return (
       <div className="wrapper">
         <Nav>
@@ -24,7 +30,7 @@ class Home extends Component {
           <Jumbotron>
             <Row>
               <Col size="sm-12">
-                <p className="text-center">Secure reliable communication when you need it. Learn how your organization can imporve on-call workflows with Pagr.</p>
+                <p className="text-center" style={jumbotronText}>Secure reliable communication when you need it. Learn how your organization can imporve on-call workflows with Pagr.</p>
               </Col>
             </Row>
             <Row center>
