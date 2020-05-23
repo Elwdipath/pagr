@@ -2,6 +2,7 @@ const axios = require('axios')
 const usersURL = "https://slack.com/api/users.lookupByEmail?token="
 const botURL = "https://slack.com/api/chat.postMessage"
 require("dotenv").config();
+const usersController = require("./usersController")
 
 module.exports = {
 
@@ -11,7 +12,10 @@ module.exports = {
             console.log("Retrieving Users")
             let users = await axios.get(usersURL + process.env.botToken + "&email=" + userEmail)
             // let users = usersURL + process.env.botToken + "&email=" + userEmail
-            console.log("Get users " + users)
+            let slackID = JSON.stringify(users.data.user.id)
+            console.log("Slack ID " + slackID)
+            //add SlackID to user collection
+            usersController.update(userEmail, slackID)
             // return users.data
         } catch (error) {
             console.error(error)
@@ -19,13 +23,14 @@ module.exports = {
     },
 
     postMessage: function (req, res) {
+        console.log(req.body)
         let token = process.env.botToken
         let headers = {
             "Authorization": `Bearer ${token}`
         }
 
         let message = {
-            channel: "#general",
+            channel: "U013D864Q94",
             text: req.body.text,
         };
 
@@ -33,13 +38,11 @@ module.exports = {
                 headers: headers
             })
             .then((response) => {
-                console.log(response);
+                res.json("Message Sent");
             })
             .catch((error) => {
-                console.error(`Error posting message to Slack API: ${error}`);
+                res.json(`Error posting message to Slack API: ${error}`);
             });
-
-        return
     }
 
 }
