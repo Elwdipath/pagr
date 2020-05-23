@@ -16,11 +16,12 @@ import "./style.css";
         return valid;
       }
 
-class SignUp extends Component {
+      class SignUp extends Component {
     state = {
         firstName: "",
         lastName: "",
         email: "",
+        isAdmin: false,
         password: "",
         confPassword: "",
         redirect: null,
@@ -63,6 +64,18 @@ class SignUp extends Component {
         this.setState({[name]: value});
       }
 
+      handleCheckBoxChange = () => {
+        if (this.state.isAdmin) {
+          this.setState({
+            isAdmin: false
+          });
+        } else {
+          this.setState({
+            isAdmin: true
+          });
+        };
+      };
+
       handleFormSubmit = event => {
         let result = !Object.values(this.state.errors).every(o => o === "");
         event.preventDefault();
@@ -72,14 +85,23 @@ class SignUp extends Component {
               "firstName": this.state.firstName,
               "lastName": this.state.lastName,
               "email": this.state.email,
+              "isAdmin": this.state.isAdmin,
               "password": this.state.password
             }
             API.saveUser(userInfo)
               .then(res => { 
+                 console.log(res);
                  alert("Success" + res );
-                 this.setState({redirect: "/login"});
+                 this.setState({redirect: "/user", user: res.data})
+                 
+                 if (res){
+                   alert(res)
+                 };
               }) 
-              .catch(err => console.log(err));
+              .catch((err) => {
+                console.log(err)
+                alert("Email is already in use.")
+              });
           }
       } else {
         alert("Please fix your errors and try again!")
@@ -88,7 +110,7 @@ class SignUp extends Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />
+      return <Redirect to={{pathname: this.state.redirect, state: {user: this.state.user}}} />
     }
     const {errors} = this.state;
     return (
@@ -112,6 +134,10 @@ class SignUp extends Component {
                 </FormGroup>
                 {errors.email.length > 0 && 
                 <span className='error text-danger'>{errors.email}</span>}
+                <FormGroup>
+                  <Label htmlFor="isAdmin">Admin User?</Label>
+                  <Input type="checkbox" id="isAdmin" name="isAdmin" value={this.state.isAdmin} onChange={this.handleCheckBoxChange} />
+                </FormGroup>
                 <FormGroup>
                   <Label htmlFor="password">Password</Label>
                   <Input type="password" id="password" name="password" autoComplete="new-password" value={this.state.password} onChange={this.handleInputChange} />

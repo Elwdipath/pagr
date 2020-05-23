@@ -3,17 +3,34 @@ const Schema = mongoose.Schema;
 const bcrypt = require("bcryptjs")
 
 const userSchema = new Schema({
-  password: { type: String, required: true },
-  email: { type: String, required: true },
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  isAdmin: { type: Boolean, default: true },
-  schedules: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Schedule"
-    }
-  ]
+  password: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  firstName: {
+    type: String,
+    required: true
+  },
+  lastName: {
+    type: String,
+    required: true
+  },
+  isAdmin: {
+    type: Boolean,
+    default: true
+  },
+  slackUserID: {
+    type: String,
+    default: null
+  },
+  schedules: [{
+    type: Schema.Types.ObjectId,
+    ref: "Schedule"
+  }]
 });
 
 userSchema.methods = {
@@ -25,7 +42,7 @@ userSchema.methods = {
   }
 }
 
-userSchema.pre('save', function(next){
+userSchema.pre('save', function (next) {
   if (!this.password) {
     console.log('models/user.js ====NO PASSWORD PROVIDED====')
     next()

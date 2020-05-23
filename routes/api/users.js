@@ -29,9 +29,15 @@ router.route("/login")
 
 router.route("/signup")
 .post(
-  passport.authenticate("local-signup", function (req, res) {
-    res.send(req.user)
-  })
+  passport.authenticate("local-signup", {
+  }),
+  (req, res, info) => {
+    if(!req.user) {
+      req.session.message = info.message
+    }
+    console.log(req.session.message)
+  res.send(req.user)
+  }
 );
 
 // User log-out
