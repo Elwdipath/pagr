@@ -3,53 +3,87 @@ import { Col, Container, Row } from "../../components/Grid";
 import Footer from "../../components/Footer";
 import { EventModal } from "../../components/EventModal";
 import FullCalendar from "@fullcalendar/react";
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
+import FormLabel from "react-bootstrap/FormLabel";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import API from "../../utils/API";
 import bootstrapPlugin from "@fullcalendar/bootstrap";
-import { CreateScheduleEventModal } from "../../components/CreateScheduleEventModal";
+import ModalInfo from "../../components/CreateScheduleEventModal/ModalInfo.js";
+import PageOnCall from "../../components/PageOnCallModal/PageOnCall.js";
 import Button from "react-bootstrap/Button";
 import dummy from "../../utils/DummySchedule";
 import "./main.scss";
 import "./style.css";
 import Nav from "../../components/Nav";
 import { DropDown, FormGroup, Input, Label } from "../../components/Form";
+import { Calendar } from "@fullcalendar/core";
 
 class user extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isAdmin: this.props.location.state.user.isAdmin,
-      events: dummy,
+      events: {},
       email: this.props.location.state.user.email,
-      event: {},
+      event: [],
       users: [],
       createEventShow: false,
-      eventEmail: "",
+      pageOnCall: false,
+      eventStaff: "",
+      eventTitle: "",
       eventDate: "",
       eventStartTime: "",
-      eventEndTime: ""
+      eventEndTime: "",
+      eventID: ""
     };
 
     this.toggle = this.toggle.bind(this);
     this.handleShow = this.handleShow.bind(this);
+    this.handlePageOnCallShow = this.handlePageOnCallShow.bind(this);
+    this.handlePageOnCallClose = this.handlePageOnCallClose.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.deleteEvent = this.deleteEvent.bind(this);
+    this.togglePageOnCall = this.togglePageOnCall.bind(this);
   }
 
   toggle() {
     this.setState((prevState) => ({
       modal: !prevState.modal,
     }));
+    this.getAllSchedules({});
+  }
+
+  togglePageOnCall() {
+    this.setState((prevState) => ({
+      pageOnCall: !prevState.pageOnCall,
+    }));
+  }
+
+  deleteEvent = () => {
+    let id = this.state.eventID;
+    API.deleteSchedule(id);
+    this.toggle();
   }
 
   saveEvent = () => {
+    event.preventDefault();
     console.log("eventSaved");
+    let event = {
+      eventStaff: this.state.eventStaff,
+      eventDate: this.state.eventDate,
+      eventStartTime: this.state.eventStartTime,
+      eventEndTime: this.state.eventEndTime,
+    };
+    console.log(event);
   };
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -62,24 +96,58 @@ class user extends Component {
     this.getUsers();
   }
 
+  handlePageOnCallShow() {
+    this.handleClose();
+    this.setState({modal: false})
+    this.setState({ pageOnCall: true });
+  }
+
+  handlePageOnCallClose() {
+    this.setState({ pageOnCall: false });
+  }
+
   getUsers = async () => {
     let users = await API.getUsers({});
     this.setState({ users: users.data });
   };
 
-  pageOnCall = (info) => {};
+// ========================= TESTING SETTING SCHEDULE DATA
+  getAllSchedules = async () => {
+    let allSchedules = await API.getSchedules();
+    this.setState({
+      events: allSchedules.data,
+    });
+  };
+// ========================= TESTING SETTING SCHEDULE DATA
 
-  // componentDidMount() {
-  //   this.setState({
-  //     email: `${this.props.location.state.user.email}`,
-  //     isAdmin: `${this.props.location.state.user.isAdmin}`,
-  //     schedules: `${this.props.location.state.user.schedules}`,
-  //   });
-  // }
+  componentDidMount() {
+    this.getAllSchedules();
+  }
 
   handleEventClick = ({ event, el }) => {
-    this.toggle();
-    this.setState({ event });
+    if (this.state.isAdmin) {
+      this.toggle();
+      this.setState({ 
+        eventTitle: event.title,
+        eventStaff: event.email,
+        eventStartTime: event.start.toString(),
+        eventEndTime: event.end.toString(),
+        eventID: event._def.extendedProps._id
+      });
+      console.log(event);
+      console.log(event._def.extendedProps._id);
+    } else {
+      this.togglePageOnCall();
+      this.setState({ 
+        eventTitle: event.title,
+        eventStaff: event.email,
+        eventStartTime: event.start.toString(),
+        eventEndTime: event.end.toString(),
+        eventID: event._def.extendedProps._id
+      });
+      console.log(event);
+      console.log(event._def.extendedProps._id);
+    }
   };
 
   renderAdminView = () => {
@@ -89,7 +157,7 @@ class user extends Component {
         <div className="wrapper">
           <Nav>
             <li className="nav-item">
-              <a className="nav-link" href="/">
+              <a className="nav-link" href="/api/users/logout">
                 Log Out
               </a>
             </li>
@@ -126,42 +194,50 @@ class user extends Component {
             show={this.state.modal}
             isOpen={this.state.modal}
             toggle={this.toggle}
+            onClick={this.handlePageOnCallShow}
             className={this.props.className}
             btnPrimary="Primary"
             btnSeconday="Secondary"
-            eventTitle={this.state.event.title}
-          />
-          <CreateScheduleEventModal
-            show={this.state.createEventShow}
-            toggle={this.handleClose}
-            saveEvent={this.saveEvent}
-            className={this.props.className}
-            btnPrimary="Primary"
-            btnSeconday="Secondary"
-            users={this.state.users}
-            handleInputChange={this.handleInputChange}
-            eventEmail={this.state.eventEmail}
-            eventDate={this.state.eventDate}
+            eventStaff={this.state.email}
+            eventTitle={this.state.eventTitle}
             eventStartTime={this.state.eventStartTime}
+            togglePageOnCall={this.togglePageOnCall}
             eventEndTime={this.state.eventEndTime}
-           />
+            deleteEvent={this.deleteEvent}
+            // eventStaffSlackID={this.state.event._def.extendedProps.contactInfo.slackUserID}
+          />
+          <ModalInfo
+            show={this.state.createEventShow}
+            users={this.state.users}
+            toggle={this.handleClose}
+            onSubmit={this.saveEvent}
+            onChange={this.handleInputChange}
+          />
+          <PageOnCall 
+            show={this.state.pageOnCall}
+            isOpen={this.state.pageOnCall}
+            toggle={this.togglePageOnCall}
+            handleClose={this.handlePageOnCallClose}
+            onSubmit={this.saveEvent}
+            onChange={this.handleInputChange}
+            staffMember={this.state.email}
+          />
         </div>
       );
     } else {
       console.log("standard");
       return (
         <div className="wrapper">
-          <Nav />
+            <Nav>
+            <li className="nav-item">
+              <a className="nav-link" href="/api/users/logout">
+                Log Out
+              </a>
+            </li>
+          </Nav>
           <Container fluid>
             <Row>
-              <Col size="sm-12 md-2">
-                <h3>This is the general user view</h3>
-                <ul>
-                  <li>Page On-Call Staff</li>
-                </ul>
-              </Col>
-              <Col size="sm-12 md-10">
-                <h1>This is where the schedule will go</h1>
+              <Col size="sm-12">
                 <FullCalendar
                   defaultView="timeGridDay"
                   plugins={[dayGridPlugin, timeGridPlugin]}
@@ -171,10 +247,19 @@ class user extends Component {
                     center: "title",
                     right: "today,prevYear,prev,next,nextYear",
                   }}
-                  eventClick={this.pageOnCall}
+                  eventClick={this.handleEventClick}
                 />
               </Col>
             </Row>
+            <PageOnCall 
+            show={this.state.pageOnCall}
+            isOpen={this.state.pageOnCall}
+            toggle={this.togglePageOnCall}
+            handleClose={this.handlePageOnCallClose}
+            onSubmit={this.saveEvent}
+            onChange={this.handleInputChange}
+            staffMember={this.state.email}
+          />
           </Container>
         </div>
       );

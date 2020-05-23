@@ -1,3 +1,4 @@
+  
 import axios from "axios";
 
 export default {
@@ -16,13 +17,20 @@ export default {
   // Saves a User to the database
   saveUser: function(userData) {
     console.log("Axios Submitting user: " + userData)
-    return axios.post("/api/users/", userData);
+    return axios.post("/api/users/signup", userData);
   },
   login: function(loginInfo){
     return axios.post('/api/users/login', loginInfo)
   },
   verify: function(user){
     return axios.get('/api/users/verify', user)
+  },
+  getSchedules: function(){
+    return axios.get('/api/schedule')
+  },
+  deleteSchedule: function(event){
+    console.log(event);
+    return axios.delete('/api/schedule/' + event);
   },
   getSchedule: function(_id){
     return axios.get('/api/schedule', _id)
