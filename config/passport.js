@@ -36,7 +36,9 @@ passport.use(
 passport.use(
   "local-login",
   new LocalStrategy(
-    { usernameField: "email" },
+    {
+      usernameField: "email" 
+    },
     function (email, password, done) {
       db.User.findOne({ email: email }, (err, user) => {
         if (!user) {
