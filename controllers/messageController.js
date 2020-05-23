@@ -1,16 +1,18 @@
 const axios = require('axios')
-const usersURL = "https://slack.com/api/users.identity?token="
+const usersURL = "https://slack.com/api/users.lookupByEmail?token="
 const botURL = "https://slack.com/api/chat.postMessage"
 require("dotenv").config();
 
 module.exports = {
 
-    getUsers: async () => {
+    getUsers: async (userEmail) => {
+        console.log("user email is: " + userEmail)
         try {
             console.log("Retrieving Users")
-            let users = await axios.get(usersURL + process.env.userToken)
-            console.log(users.data.user.name)
-            return users.data
+            let users = await axios.get(usersURL + process.env.botToken + "&email=" + userEmail)
+            // let users = usersURL + process.env.botToken + "&email=" + userEmail
+            console.log("Get users " + users)
+            // return users.data
         } catch (error) {
             console.error(error)
         }

@@ -11,6 +11,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import API from "../../utils/API";
 import bootstrapPlugin from "@fullcalendar/bootstrap";
 import ModalInfo from "../../components/CreateScheduleEventModal/ModalInfo.js";
+import PageOnCall from "../../components/PageOnCallModal/PageOnCall.js";
 import Button from "react-bootstrap/Button";
 import dummy from "../../utils/DummySchedule";
 import "./main.scss";
@@ -29,6 +30,7 @@ class user extends Component {
       event: [],
       users: [],
       createEventShow: false,
+      pageOnCall: false,
       eventStaff: "",
       eventTitle: "",
       eventDate: "",
@@ -39,9 +41,12 @@ class user extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.handleShow = this.handleShow.bind(this);
+    this.handlePageOnCallShow = this.handlePageOnCallShow.bind(this);
+    this.handlePageOnCallClose = this.handlePageOnCallClose.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.deleteEvent = this.deleteEvent.bind(this);
+    this.togglePageOnCall = this.togglePageOnCall.bind(this);
   }
 
   toggle() {
@@ -49,6 +54,12 @@ class user extends Component {
       modal: !prevState.modal,
     }));
     this.getAllSchedules({});
+  }
+
+  togglePageOnCall() {
+    this.setState((prevState) => ({
+      pageOnCall: !prevState.pageOnCall,
+    }));
   }
 
   deleteEvent = () => {
@@ -85,12 +96,20 @@ class user extends Component {
     this.getUsers();
   }
 
+  handlePageOnCallShow() {
+    this.handleClose();
+    this.setState({modal: false})
+    this.setState({ pageOnCall: true });
+  }
+
+  handlePageOnCallClose() {
+    this.setState({ pageOnCall: false });
+  }
+
   getUsers = async () => {
     let users = await API.getUsers({});
     this.setState({ users: users.data });
   };
-
-  pageOnCall = (info) => {};
 
 // ========================= TESTING SETTING SCHEDULE DATA
   getAllSchedules = async () => {
@@ -164,12 +183,14 @@ class user extends Component {
             show={this.state.modal}
             isOpen={this.state.modal}
             toggle={this.toggle}
+            onClick={this.handlePageOnCallShow}
             className={this.props.className}
             btnPrimary="Primary"
             btnSeconday="Secondary"
             eventStaff={this.state.email}
             eventTitle={this.state.eventTitle}
             eventStartTime={this.state.eventStartTime}
+            togglePageOnCall={this.togglePageOnCall}
             eventEndTime={this.state.eventEndTime}
             deleteEvent={this.deleteEvent}
             // eventStaffSlackID={this.state.event._def.extendedProps.contactInfo.slackUserID}
@@ -180,6 +201,15 @@ class user extends Component {
             toggle={this.handleClose}
             onSubmit={this.saveEvent}
             onChange={this.handleInputChange}
+          />
+          <PageOnCall 
+            show={this.state.pageOnCall}
+            isOpen={this.state.pageOnCall}
+            toggle={this.togglePageOnCall}
+            handleClose={this.handlePageOnCallClose}
+            onSubmit={this.saveEvent}
+            onChange={this.handleInputChange}
+            staffMember={this.state.email}
           />
         </div>
       );

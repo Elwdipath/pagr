@@ -24,7 +24,7 @@ export function EventModal(props) {
       </EventModalBody>
       <EventModalFooter>
         <Button color={props.btnPrimary}>Edit Event</Button>
-        <Button color={props.btnPrimary}>Page On-Call</Button>
+        <Button onClick={props.onClick} color={props.btnPrimary}>Page On-Call</Button>
         <Button onClick={props.deleteEvent} color={props.btnPrimary}>Delete Event</Button>
         <Button color={props.btnSecondary} onClick={props.toggle}>
           Cancel
