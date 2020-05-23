@@ -12,6 +12,7 @@ class SignUp extends Component {
         firstName: "",
         lastName: "",
         email: "",
+        isAdmin: false,
         password: "",
         confPassword: "",
         redirect: null
@@ -24,6 +25,18 @@ class SignUp extends Component {
         });
       };
 
+      handleCheckBoxChange = () => {
+        if (this.state.isAdmin) {
+          this.setState({
+            isAdmin: false
+          });
+        } else {
+          this.setState({
+            isAdmin: true
+          });
+        };
+      };
+
       handleFormSubmit = event => {
         event.preventDefault();
         if (this.state.firstName && this.state.lastName && this.state.email && this.state.password) {
@@ -32,6 +45,7 @@ class SignUp extends Component {
               "firstName": this.state.firstName,
               "lastName": this.state.lastName,
               "email": this.state.email,
+              "isAdmin": this.state.isAdmin,
               "password": this.state.password
             }
             API.saveUser(userInfo)
@@ -65,6 +79,10 @@ class SignUp extends Component {
                 <FormGroup>
                   <Label htmlFor="email">Email Name</Label>
                   <Input type="email" id="email" name="email" autoComplete="email" value={this.state.email} onChange={this.handleInputChange} />
+                </FormGroup>
+                <FormGroup>
+                  <Label htmlFor="isAdmin">Admin User?</Label>
+                  <Input type="checkbox" id="isAdmin" name="isAdmin" value={this.state.isAdmin} onChange={this.handleCheckBoxChange} />
                 </FormGroup>
                 <FormGroup>
                   <Label htmlFor="password">Password</Label>

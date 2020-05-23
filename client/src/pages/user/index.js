@@ -135,8 +135,6 @@ class user extends Component {
     });
     console.log(event);
     console.log(event._def.extendedProps._id);
-    
-    
   };
 
   renderAdminView = () => {
