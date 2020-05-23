@@ -125,16 +125,29 @@ class user extends Component {
   }
 
   handleEventClick = ({ event, el }) => {
-    this.toggle();
-    this.setState({ 
-      eventTitle: event.title,
-      eventStaff: event.email,
-      eventStartTime: event.start.toString(),
-      eventEndTime: event.end.toString(),
-      eventID: event._def.extendedProps._id
-    });
-    console.log(event);
-    console.log(event._def.extendedProps._id);
+    if (this.state.isAdmin) {
+      this.toggle();
+      this.setState({ 
+        eventTitle: event.title,
+        eventStaff: event.email,
+        eventStartTime: event.start.toString(),
+        eventEndTime: event.end.toString(),
+        eventID: event._def.extendedProps._id
+      });
+      console.log(event);
+      console.log(event._def.extendedProps._id);
+    } else {
+      this.togglePageOnCall();
+      this.setState({ 
+        eventTitle: event.title,
+        eventStaff: event.email,
+        eventStartTime: event.start.toString(),
+        eventEndTime: event.end.toString(),
+        eventID: event._def.extendedProps._id
+      });
+      console.log(event);
+      console.log(event._def.extendedProps._id);
+    }
   };
 
   renderAdminView = () => {
@@ -215,17 +228,16 @@ class user extends Component {
       console.log("standard");
       return (
         <div className="wrapper">
-          <Nav />
+            <Nav>
+            <li className="nav-item">
+              <a className="nav-link" href="/api/users/logout">
+                Log Out
+              </a>
+            </li>
+          </Nav>
           <Container fluid>
             <Row>
-              <Col size="sm-12 md-2">
-                <h3>This is the general user view</h3>
-                <ul>
-                  <li>Page On-Call Staff</li>
-                </ul>
-              </Col>
-              <Col size="sm-12 md-10">
-                <h1>This is where the schedule will go</h1>
+              <Col size="sm-12">
                 <FullCalendar
                   defaultView="timeGridDay"
                   plugins={[dayGridPlugin, timeGridPlugin]}
@@ -235,10 +247,19 @@ class user extends Component {
                     center: "title",
                     right: "today,prevYear,prev,next,nextYear",
                   }}
-                  eventClick={this.pageOnCall}
+                  eventClick={this.handleEventClick}
                 />
               </Col>
             </Row>
+            <PageOnCall 
+            show={this.state.pageOnCall}
+            isOpen={this.state.pageOnCall}
+            toggle={this.togglePageOnCall}
+            handleClose={this.handlePageOnCallClose}
+            onSubmit={this.saveEvent}
+            onChange={this.handleInputChange}
+            staffMember={this.state.email}
+          />
           </Container>
         </div>
       );
