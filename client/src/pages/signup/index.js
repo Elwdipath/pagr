@@ -77,7 +77,7 @@ class SignUp extends Component {
             API.saveUser(userInfo)
               .then(res => { 
                  alert("Success" + res );
-                 this.setState({redirect: "/login"});
+                 this.setState({redirect: "/user", user: res.data});
               }) 
               .catch(err => console.log(err));
           }
@@ -88,7 +88,7 @@ class SignUp extends Component {
 
   render() {
     if (this.state.redirect) {
-      return <Redirect to={this.state.redirect} />
+      return <Redirect to={{pathname: this.state.redirect, state: {user: this.state.user}}} />
     }
     const {errors} = this.state;
     return (
