@@ -3,8 +3,8 @@ import axios from "axios";
 
 export default {
   // Gets all Users
-  getUsers: function(email) {
-    return axios.get("/api/users/" + email);
+  getUsers: function() {
+    return axios.get("/api/users/");
   },
   // Gets the User with the given id
   getUser: function(id) {

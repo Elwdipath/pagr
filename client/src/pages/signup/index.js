@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import { Col, Row, Container } from "../../components/Grid";
 import { FormBtn, Input, FormGroup, Label } from "../../components/Form";
 import { Redirect } from "react-router-dom";
+import Nav from "../../components/Nav"
 import API from "../../utils/API";
 import { Footer } from "../../components/Footer";
 import "./style.css";
@@ -114,14 +115,25 @@ import "./style.css";
     }
     const {errors} = this.state;
     const signUpWrapper = {
-      height: '100%',
-      width: '100%',
+      height: '100vh',
+      width: '100vw',
       backgroundImage: 'url(assets/img/er.jpg)'
     }
     return (
       <div className='signUpWrapper' style={signUpWrapper}>
+                <Nav>
+          <li className="nav-item">
+            <a className="nav-link" href="/login">Log In</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="/contact-us">Contact Us</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="/about-us">About Us</a>
+          </li>
+        </Nav>
         <div className="container-fluid">
-          <div className="formContainer rounded border text-center justify-content-center">
+          <div className="formContainer rounded border text-center">
             <h1>Sign Up</h1>
             <div>
               <form className="form-signup text-left">
@@ -140,8 +152,8 @@ import "./style.css";
                 {errors.email.length > 0 && 
                 <span className='error text-danger'>{errors.email}</span>}
                 <FormGroup>
-                  <Label htmlFor="isAdmin">Admin User?</Label>
-                  <Input type="checkbox" id="isAdmin" name="isAdmin" value={this.state.isAdmin} onChange={this.handleCheckBoxChange} />
+                    <Label htmlFor="isAdmin">Admin User?</Label>
+                    <Input type="checkbox" id="isAdmin" name="isAdmin" value={this.state.isAdmin} onChange={this.handleCheckBoxChange} />
                 </FormGroup>
                 <FormGroup>
                   <Label htmlFor="password">Password</Label>

@@ -122,6 +122,7 @@ class user extends Component {
 
   componentDidMount() {
     this.getAllSchedules();
+    this.getUsers();
   }
 
   handleEventClick = ({ event, el }) => {
@@ -161,6 +162,12 @@ class user extends Component {
                 Log Out
               </a>
             </li>
+            <li className="nav-item">
+            <a className="nav-link" href="/contact-us">Contact Us</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="/about-us">About Us</a>
+          </li>
           </Nav>
           <Container fluid>
             <Row>
@@ -234,6 +241,12 @@ class user extends Component {
                 Log Out
               </a>
             </li>
+            <li className="nav-item">
+            <a className="nav-link" href="/contact-us">Contact Us</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="/about-us">About Us</a>
+          </li>
           </Nav>
           <Container fluid>
             <Row>
