@@ -122,6 +122,7 @@ class user extends Component {
 
   componentDidMount() {
     this.getAllSchedules();
+    this.getUsers();
   }
 
   handleEventClick = ({ event, el }) => {

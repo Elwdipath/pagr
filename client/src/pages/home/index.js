@@ -4,7 +4,6 @@ import Nav from "../../components/Nav";
 import Jumbotron from "../../components/Jumbotron";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Footer } from "../../components/Footer";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 
 class Home extends Component {
@@ -35,7 +34,7 @@ class Home extends Component {
             </Row>
             <Row center>
               <Col size="sm=12">
-                <a href="/sign-up" className="btn btn-success">Get Started</a>
+                <a href="/sign-up" className="btn btn-danger">Get Started</a>
               </Col>
             </Row>
           </Jumbotron>

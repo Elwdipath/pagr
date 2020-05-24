@@ -114,14 +114,15 @@ import "./style.css";
     }
     const {errors} = this.state;
     const signUpWrapper = {
-      height: '100%',
-      width: '100%',
+      height: '100vh',
+      width: '100vw',
+      padding: '3rem',
       backgroundImage: 'url(assets/img/er.jpg)'
     }
     return (
       <div className='signUpWrapper' style={signUpWrapper}>
         <div className="container-fluid">
-          <div className="formContainer rounded border text-center justify-content-center">
+          <div className="formContainer rounded border text-center">
             <h1>Sign Up</h1>
             <div>
               <form className="form-signup text-left">
@@ -140,8 +141,8 @@ import "./style.css";
                 {errors.email.length > 0 && 
                 <span className='error text-danger'>{errors.email}</span>}
                 <FormGroup>
-                  <Label htmlFor="isAdmin">Admin User?</Label>
-                  <Input type="checkbox" id="isAdmin" name="isAdmin" value={this.state.isAdmin} onChange={this.handleCheckBoxChange} />
+                    <Label htmlFor="isAdmin">Admin User?</Label>
+                    <Input type="checkbox" id="isAdmin" name="isAdmin" value={this.state.isAdmin} onChange={this.handleCheckBoxChange} />
                 </FormGroup>
                 <FormGroup>
                   <Label htmlFor="password">Password</Label>
