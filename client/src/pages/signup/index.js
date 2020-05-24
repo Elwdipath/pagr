@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import { Col, Row, Container } from "../../components/Grid";
 import { FormBtn, Input, FormGroup, Label } from "../../components/Form";
 import { Redirect } from "react-router-dom";
+import Nav from "../../components/Nav"
 import API from "../../utils/API";
 import { Footer } from "../../components/Footer";
 import "./style.css";
@@ -116,11 +117,21 @@ import "./style.css";
     const signUpWrapper = {
       height: '100vh',
       width: '100vw',
-      padding: '3rem',
       backgroundImage: 'url(assets/img/er.jpg)'
     }
     return (
       <div className='signUpWrapper' style={signUpWrapper}>
+                <Nav>
+          <li className="nav-item">
+            <a className="nav-link" href="/login">Log In</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="/contact-us">Contact Us</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="/about-us">About Us</a>
+          </li>
+        </Nav>
         <div className="container-fluid">
           <div className="formContainer rounded border text-center">
             <h1>Sign Up</h1>

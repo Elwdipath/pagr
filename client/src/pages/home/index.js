@@ -23,7 +23,13 @@ class Home extends Component {
           </li>
           <li className="nav-item">
             <a className="nav-link" href="/login">Log In</a>
-          </li> 
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="/contact-us">Contact Us</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="/about-us">About Us</a>
+          </li>
         </Nav>
         <Container fluid>
           <Jumbotron>
