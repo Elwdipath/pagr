@@ -19,6 +19,7 @@ import "./style.css";
 import Nav from "../../components/Nav";
 import { DropDown, FormGroup, Input, Label } from "../../components/Form";
 import { Calendar } from "@fullcalendar/core";
+import { Redirect } from "react-router-dom";
 
 class user extends Component {
   constructor(props) {
@@ -153,16 +154,27 @@ class user extends Component {
       console.log(event);
       console.log(event._def.extendedProps._id);
     }
+
+    }
+
+    
+    logout = () =>{
+      alert("you logged out")
+      this.setState({redirect: "/"})
+      
   };
 
   renderAdminView = () => {
+    if (this.state.redirect) {
+      return <Redirect to={{pathname: this.state.redirect}} />
+    }
     if (this.state.isAdmin) {
       console.log("admin");
       return (
         <div className="wrapper">
           <Nav>
             <li className="nav-item">
-              <a className="nav-link" href="/api/users/logout">
+              <a className="nav-link" onClick={this.logout}>
                 Log Out
               </a>
             </li>

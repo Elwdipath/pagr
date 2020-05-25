@@ -20,6 +20,7 @@ function App() {
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/user" component={User} />
+          <Route exact path="/logout" component={Home} />
           <Route component={NoMatch} />
         </Switch>
       </div>

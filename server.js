@@ -12,7 +12,7 @@ const session = require("express-session");
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(
-  session({ secret: "some secrets", resave: false, saveUninitialized: true })
+  session({ secret: "some secrets", resave: false, saveUninitialized: false })
 );
 
 // Define middleware here
