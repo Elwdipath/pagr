@@ -23,16 +23,18 @@ module.exports = {
     },
 
     postMessage: function (req, res) {
-        console.log(req.body)
+        console.log(req.body.slackUserID)
+        let slackUser = req.body.slackUserID
         let token = process.env.botToken
         let headers = {
             "Authorization": `Bearer ${token}`
         }
 
         let message = {
-            channel: "#general",
+            channel: JSON.parse(slackUser),
             text: req.body.text,
         };
+        console.log(message)
 
         axios.post(botURL, message, {
                 headers: headers
