@@ -27,7 +27,8 @@ class PageOnCall extends React.Component {
 
   sendMessage(e) {
     e.preventDefault();
-    let text = {text: this.state.message}
+    let text = {text: this.state.message, slackUserID: this.props.eventSlackUserID}
+    console.log(text);
     API.sendMessage(text);
     this.setState({message: ""})
   }
