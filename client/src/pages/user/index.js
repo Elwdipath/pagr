@@ -146,6 +146,7 @@ class user extends Component {
         eventTitle: event.title,
         eventStaff: event._def.extendedProps.contactInfo.email,
         eventStartTime: event.start.toString(),
+        eventSlackUserID: event._def.extendedProps.contactInfo.slackUserID,
         eventEndTime: event.end.toString(),
         eventID: event._def.extendedProps._id
       });
@@ -232,7 +233,7 @@ class user extends Component {
             onSubmit={this.saveEvent}
             onChange={this.handleInputChange}
             staffMember={this.state.eventStaff}
-            eventSlackUserID={this.state.eventStaff}
+            eventSlackUserID={this.state.eventSlackUserID}
           />
         </div>
       );
