@@ -18,7 +18,7 @@ class PageOnCall extends React.Component {
     super(props);
     this.state = {
       staffMember: this.props.staffMember,
-      slackID:"",
+      slackUserID: this.props.eventSlackUserID,
       message:""
     }
 
@@ -27,8 +27,9 @@ class PageOnCall extends React.Component {
 
   sendMessage(e) {
     e.preventDefault();
-    let text = this.state.message;
-    alert("Slack Message to " + this.state.staffMember + "\n" + "Message: " + this.state.message);
+    let text = {text: this.state.message}
+    API.sendMessage(text);
+    this.setState({message: ""})
   }
 
   handleInputChange = (event) => {

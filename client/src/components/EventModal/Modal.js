@@ -18,9 +18,9 @@ export function EventModal(props) {
         <ModalTitle>{props.eventTitle}</ModalTitle>
       </ModalHeader>
       <EventModalBody>
-        <h2>Staff Member: {props.eventStaff}</h2>
-        <h2>Start Time: {props.eventStartTime}</h2>
-        <h2>End Time: {props.eventEndTime}</h2>
+        <p><strong>Staff Member Email:</strong> {props.eventStaff}</p>
+        <p><strong>Start:</strong> {props.eventStartTime}</p>
+        <p><strong>End:</strong> {props.eventEndTime}</p>
       </EventModalBody>
       <EventModalFooter>
         <Button color={props.btnPrimary}>Edit Event</Button>

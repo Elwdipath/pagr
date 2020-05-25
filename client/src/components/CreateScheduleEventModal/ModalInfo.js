@@ -17,11 +17,13 @@ class ModalInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      value: "",
       eventStaff: "",
-      eventStaffFName: "",
       eventDate: "",
       eventStartTime: "",
-      eventEndTime: ""
+      eventEndTime: "",
+      eventSlackUserID: "",
+      eventStaffEmail: ""
     }
 
     this.saveData = this.saveData.bind(this);
@@ -30,11 +32,12 @@ class ModalInfo extends React.Component {
   saveData(e) {
     e.preventDefault();
     let event = {
-      email: this.state.eventStaff,
+      email: this.state.eventStaffEmail,
       date: this.state.eventDate,
       startTime: this.state.eventStartTime,
       endTime: this.state.eventEndTime,
-      firstName: this.state.eventStaffFName
+      fullName: this.state.eventStaff,
+      slackUserID: this.state.eventSlackUserID
     }
     API.saveSchedule(event)
     this.setState({
@@ -42,7 +45,9 @@ class ModalInfo extends React.Component {
       eventDate: "",
       eventStartTime: "",
       eventEndTime: "",
-      eventStaffFName: ""
+      eventSlackUserID: "",
+      eventStaffEmail: "",
+      value: ""
     })
   }
 
@@ -52,6 +57,26 @@ class ModalInfo extends React.Component {
       [name]: value,
     });
   };
+
+  handleStaffSelection = (e) => {
+    const value = e.target.value;
+    // this.setState({eventStaff: value});
+    let index = e.target.selectedIndex;
+    let optionElement = e.target.childNodes[index];
+    let fName = optionElement.getAttribute('data-fname');
+    let lName = optionElement.getAttribute('data-lname');
+    let slackUserID = optionElement.getAttribute('data-slackUserID');
+    let email = optionElement.getAttribute('data-email');
+    let fullName = `${fName} ${lName}`;
+    this.setState({
+      value: value,
+      eventStaff: fullName,
+      eventSlackUserID: slackUserID,
+      eventStaffEmail: email
+    })
+  };
+
+
 
   render() {
 
@@ -68,10 +93,10 @@ class ModalInfo extends React.Component {
       <ModalBody>
         <Form onSubmit={this.saveData}>
           <FormGroup>
-            <FormControl onChange={this.handleInputChange} name="eventStaff" value={this.state.eventStaff} as="select" >
+            <FormControl onChange={this.handleStaffSelection} name="eventStaff" value={this.state.value} as="select" >
               <option>Select Staff Member</option>
               {this.props.users.map(user => (
-                <option value={user.email}  name="email" key={user._id}>{user.firstName} {user.lastName}</option>
+                <option value={user._id} key={user._id} data-email={user.email} data-fname={user.firstName} data-lname={user.lastName} data-slackUserID={user.slackUserID}>{user.firstName} {user.lastName}</option>
               ))}
             </FormControl>
           </FormGroup>

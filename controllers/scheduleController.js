@@ -23,14 +23,14 @@ module.exports = {
     let end = req.body.endTime
     let email = req.body.email
     let slackUserID = req.body.slackUserID || "Not Provided"
-    let firstName = req.body.firstName || ""
+    let fullName = req.body.fullName || ""
 
     scheduleObj = {
-      title: (email || firstName) + " On-Call",
+      title: fullName + " On-Call",
       start: date+"T"+start,
       end: date+"T"+end,
       contactInfo: {
-        slackUserID: (slackUserID),
+        slackUserID: slackUserID,
         email: email
       }
     }
