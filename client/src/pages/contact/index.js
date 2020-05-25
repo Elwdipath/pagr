@@ -47,7 +47,7 @@ class ContactUs extends Component {
             <a className="nav-link" href="/login">Log In</a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/about-us">About Us</a>
+            <a className="nav-link" href="/about">About Us</a>
           </li>
         </Nav>
         <Container>

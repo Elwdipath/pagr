@@ -55,10 +55,10 @@ class Login extends Component {
             <a className="nav-link" href="/signup">Sign Up</a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/contact-us">Contact Us</a>
+            <a className="nav-link" href="/contact">Contact Us</a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/about-us">About Us</a>
+            <a className="nav-link" href="/about">About Us</a>
           </li>
         </Nav>
         <div className="container-fluid">
