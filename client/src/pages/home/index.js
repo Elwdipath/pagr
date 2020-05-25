@@ -40,7 +40,7 @@ class Home extends Component {
             </Row>
             <Row center>
               <Col size="sm=12">
-                <a href="/signup" className="btn btn-danger">Get Started</a>
+                <a href="/signup" className="btn btn-danger btn-lg">Get Started</a>
               </Col>
             </Row>
           </Jumbotron>
