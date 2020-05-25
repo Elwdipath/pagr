@@ -277,7 +277,8 @@ class user extends Component {
             handleClose={this.handlePageOnCallClose}
             onSubmit={this.saveEvent}
             onChange={this.handleInputChange}
-            staffMember={this.state.email}
+            staffMember={this.state.eventStaff}
+            eventSlackUserID={this.state.eventSlackUserID}
           />
           </Container>
         </div>
