@@ -3,6 +3,18 @@ const usersController = require("../../controllers/usersController");
 const passport = require("../../config/passport");
 const verify = require("../../config/middleware/isAuthenticated");
 
+
+
+//get user by email
+router.route("/email/:email")
+  .get(usersController.findByEmail)
+
+// getSlackID = (email) => { 
+//   user = API.getUserByEmail({email: email})
+//   return user.slackUserID
+// }
+
+
 // Matches with "/api/users"
 router.route("/")
 .get(usersController.findAll)

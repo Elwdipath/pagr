@@ -39,24 +39,33 @@ class Login extends Component {
       };
 
   render() {
+  const loginWrapper = {
+    height: '100vh',
+    width: '100vw',
+    backgroundImage: 'url(assets/img/er.jpg)',
+}
+
     if (this.state.redirect) {
       return <Redirect to={{pathname: this.state.redirect, state: {user: this.state.user}}} />
     }
     return (
-      <div className="wrapper">
+      <div className="loginWrapper" style={loginWrapper}>
         <Nav>
           <li className="nav-item">
             <a className="nav-link" href="/signup">Sign Up</a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/login">Log In</a>
-          </li> 
+            <a className="nav-link" href="/contact-us">Contact Us</a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="/about-us">About Us</a>
+          </li>
         </Nav>
         <div className="container-fluid">
           <div className="formContainer rounded border text-center justify-content-center">
             <h1>Log In</h1>
             <div>
-              <form className="form-signup text-left">
+              <form className="form-login text-left">
                 <FormGroup>
                   <Label htmlFor="email">Email</Label>
                   <Input type="email" id="email" autoComplete="email" name="email" value={this.state.email} onChange={this.handleInputChange} />

@@ -4,11 +4,14 @@ import axios from "axios";
 export default {
   // Gets all Users
   getUsers: function() {
-    return axios.get("/api/users");
+    return axios.get("/api/users/");
   },
   // Gets the User with the given id
   getUser: function(id) {
     return axios.get("/api/users/" + id);
+  },
+  getUserByEmail: function(email) {
+    return axios.get("/api/users/email/" + email);
   },
   // Deletes the User with the given id
   deleteUser: function(id) {
@@ -37,5 +40,8 @@ export default {
   },
   saveSchedule: function(schedule){
     return axios.post('/api/schedule', schedule)
+  },
+  sendMessage: function(text){
+    return axios.post('/api/message', text)
   }
 };
