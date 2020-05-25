@@ -41,7 +41,7 @@ export default {
   saveSchedule: function(schedule){
     return axios.post('/api/schedule', schedule)
   },
-  sendMessage: function(message){
-    return axios.post('/api/message', message)
+  sendMessage: function(text){
+    return axios.post('/api/message', text)
   }
 };

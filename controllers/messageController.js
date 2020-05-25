@@ -30,7 +30,7 @@ module.exports = {
         }
 
         let message = {
-            channel: "U013D864Q94",
+            channel: "#general",
             text: req.body.text,
         };
 

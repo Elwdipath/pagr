@@ -32,6 +32,7 @@ class user extends Component {
       createEventShow: false,
       pageOnCall: false,
       eventStaff: "",
+      eventSlackUserID: "",
       eventTitle: "",
       eventDate: "",
       eventStartTime: "",
@@ -127,11 +128,13 @@ class user extends Component {
 
   handleEventClick = ({ event, el }) => {
     if (this.state.isAdmin) {
+      console.log(event);
       this.toggle();
       this.setState({ 
         eventTitle: event.title,
-        eventStaff: event.email,
+        eventStaff: event._def.extendedProps.contactInfo.email,
         eventStartTime: event.start.toString(),
+        eventSlackUserID: event._def.extendedProps.contactInfo.slackUserID,
         eventEndTime: event.end.toString(),
         eventID: event._def.extendedProps._id
       });
@@ -141,7 +144,7 @@ class user extends Component {
       this.togglePageOnCall();
       this.setState({ 
         eventTitle: event.title,
-        eventStaff: event.email,
+        eventStaff: event._def.extendedProps.contactInfo.email,
         eventStartTime: event.start.toString(),
         eventEndTime: event.end.toString(),
         eventID: event._def.extendedProps._id
@@ -205,8 +208,9 @@ class user extends Component {
             className={this.props.className}
             btnPrimary="Primary"
             btnSeconday="Secondary"
-            eventStaff={this.state.email}
+            eventStaff={this.state.eventStaff}
             eventTitle={this.state.eventTitle}
+            eventSlackUserID={this.state.eventStaff}
             eventStartTime={this.state.eventStartTime}
             togglePageOnCall={this.togglePageOnCall}
             eventEndTime={this.state.eventEndTime}
@@ -227,7 +231,8 @@ class user extends Component {
             handleClose={this.handlePageOnCallClose}
             onSubmit={this.saveEvent}
             onChange={this.handleInputChange}
-            staffMember={this.state.email}
+            staffMember={this.state.eventStaff}
+            eventSlackUserID={this.state.eventStaff}
           />
         </div>
       );
