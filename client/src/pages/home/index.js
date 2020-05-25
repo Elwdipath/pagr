@@ -49,19 +49,19 @@ class Home extends Component {
               <Col size="sm-12 md-4">
                 <div className="container-fluid text-center">
                   <FontAwesomeIcon icon="comment-medical" size="6x" color="Dodgerblue" />
-                  <p className="pt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias culpa nesciunt reprehenderit. Distinctio culpa sed soluta provident earum. Iste, veritatis.</p>
+                  <p className="pt-4">Reliable communication using one of the most popular messaging platforms.</p>
                 </div>
               </Col>
               <Col size="sm-12 md-4">
                 <div className="container-fluid text-center">
                   <FontAwesomeIcon icon="laptop-medical" size="6x" color="Dodgerblue" />
-                  <p className="pt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias culpa nesciunt reprehenderit. Distinctio culpa sed soluta provident earum. Iste, veritatis.</p>
+                  <p className="pt-4">Easy access to your on-call schedules from any device. Stay connected to your staff anywhere.</p>
                 </div>
               </Col>
               <Col size="sm-12 md-4">
                 <div className="container-fluid text-center">
                   <FontAwesomeIcon icon="user-md" size="6x" color="Dodgerblue" />
-                  <p className="pt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias culpa nesciunt reprehenderit. Distinctio culpa sed soluta provident earum. Iste, veritatis.</p>
+                  <p className="pt-4">Keep your team updated. No matter how large your organization is Pagr can help you keep track of your most important resources.</p>
                 </div>
               </Col>
             </Row>
