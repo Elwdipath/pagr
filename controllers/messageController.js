@@ -31,11 +31,7 @@ module.exports = {
         }
 
         let message = {
-<<<<<<< Updated upstream
-            channel: "U013D864Q94",
-=======
             channel: JSON.parse(slackUser),
->>>>>>> Stashed changes
             text: req.body.text,
         };
         console.log(message)
