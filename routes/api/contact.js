@@ -2,7 +2,7 @@ const router = require("express").Router();
 const contactController = require("../../controllers/contactController");
 
 // Matches with "/api/schedule"
-router.route("/")
+router.route("/api/contact")
   // .get(contactController.findAll)
   .post(contactController);
 

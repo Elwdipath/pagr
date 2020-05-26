@@ -3,9 +3,6 @@ import { Col, Container, Row } from "../../components/Grid";
 import Footer from "../../components/Footer";
 import { EventModal } from "../../components/EventModal";
 import FullCalendar from "@fullcalendar/react";
-import Form from "react-bootstrap/Form";
-import FormControl from "react-bootstrap/FormControl";
-import FormLabel from "react-bootstrap/FormLabel";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import API from "../../utils/API";
@@ -13,7 +10,6 @@ import bootstrapPlugin from "@fullcalendar/bootstrap";
 import ModalInfo from "../../components/CreateScheduleEventModal/ModalInfo.js";
 import PageOnCall from "../../components/PageOnCallModal/PageOnCall.js";
 import Button from "react-bootstrap/Button";
-import dummy from "../../utils/DummySchedule";
 import "./main.scss";
 import "./style.css";
 import Nav from "../../components/Nav";
@@ -181,10 +177,10 @@ class user extends Component {
               </a>
             </li>
             <li className="nav-item">
-            <a className="nav-link" href="/contact-us">Contact Us</a>
+            <a className="nav-link" href="/contact">Contact Us</a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/about-us">About Us</a>
+            <a className="nav-link" href="/about">About Us</a>
           </li>
           </Nav>
           <Container fluid>
@@ -262,10 +258,10 @@ class user extends Component {
               </a>
             </li>
             <li className="nav-item">
-            <a className="nav-link" href="/contact-us">Contact Us</a>
+            <a className="nav-link" href="/contact">Contact Us</a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/about-us">About Us</a>
+            <a className="nav-link" href="/about">About Us</a>
           </li>
           </Nav>
           <Container fluid>
