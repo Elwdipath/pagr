@@ -43,5 +43,8 @@ export default {
   },
   sendMessage: function(text){
     return axios.post('/api/message', text)
+  },
+  logOut: function() {
+    return axios.post('/api/users/logout')
   }
 };
