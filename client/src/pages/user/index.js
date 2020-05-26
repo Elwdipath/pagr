@@ -160,6 +160,8 @@ class user extends Component {
     
     logout = () =>{
       alert("you logged out")
+      document.cookie = "connect.sid = ; expires = thu, 01 Jan 1970 00:00:00 GMT; path=/"
+
       this.setState({redirect: "/"})
       
   };

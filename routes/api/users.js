@@ -57,12 +57,6 @@ router.route("/signup")
 router.route("/logout")
 .get((req, res) => {
   req.logOut();
-    res.clearCookie('connect.sid');
-  req.session.destroy((err) => {
-    if (err) throw err
-    res.sendStatus(200).json({status:"ok"})
-  })
-  // .listen(3000,() => console.log('Server on port 3000'))
 });
 
 //the route for verifying a user has an authorized session
