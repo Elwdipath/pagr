@@ -2,6 +2,7 @@ const router = require("express").Router();
 const usersController = require("../../controllers/usersController");
 const passport = require("../../config/passport");
 const verify = require("../../config/middleware/isAuthenticated");
+const path = require('path')
 
 
 
@@ -56,7 +57,6 @@ router.route("/signup")
 router.route("/logout")
 .get((req, res) => {
   req.logOut();
-  res.redirect("/");
 });
 
 //the route for verifying a user has an authorized session
