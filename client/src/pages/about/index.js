@@ -46,19 +46,17 @@ class About extends Component {
             <Col sm={12} md={3}>
               <img src="https://via.placeholder.com/150" alt=""/>
               <h1>Jordan</h1>
-              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab architecto, quaerat deleniti a quisquam amet voluptatibus libero similique cumque consequuntur ea, molestiae minus, illo fugiat praesentium cupiditate modi sapiente non.</p>
+              <p>Jordan was a great project lead. He made sure we stayed on course. If there was a obstacle he helped us work through it. He has a strong head for front-end or back-end problem solving.</p>
             </Col>
             <Col sm={12} md={3}>
               <img src="assets/img/branden.jpg" alt="Branden Pic" height="150px" width="150px"/>
               <h1>Branden</h1>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque laboriosam harum eveniet minima dolorum accusamus commodi error eius in, ipsam explicabo ea provident, iure cum. Debitis distinctio hic explicabo tempore?</p>
+              <p>Branden is a back-end wizard. He was repsonsible for giving us a solid backend foundation. He worked two jobs and still managed to get us setup ahead of schedule. We could not have done this project without him.</p>
             </Col>
             <Col sm={12} md={3}>
             <img src="assets/img/robert.JPG" alt="Robert Pic" height="150px" width="150px"/>
               <h1>Robert</h1>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. A esse placeat alias vitae aut, maxime repudiandae rem omnis cum fugiat quam? Quisquam sequi culpa exercitationem nisi aspernatur voluptatem expedita ea.
-              </p>
+              <p>Robert handled the front-end build. He learned more about React modals than he ever wanted to learn. </p>
             </Col>
           </Row>
 
